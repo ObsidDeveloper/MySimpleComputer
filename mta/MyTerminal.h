@@ -15,4 +15,10 @@ enum Colors {
 	BLUE = 4
 };
 
+int mt_clrscr(void);
+int mt_gotoXY(int x,int y);
+int mt_getscreensize(int *rows,int *cols);
+int mt_setfgcolor(enum Colors color);
+int mt_setbgcolor(enum Colors color);
+
 #endif
