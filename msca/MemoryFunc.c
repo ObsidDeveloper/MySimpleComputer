@@ -43,3 +43,14 @@ int sc_memoryLoad(char * filename) {
 	} fclose(file);
 	return -1;
 }
+
+int sc_memoryPrint() {
+	printf("\n\n    ");
+	int i, j, buf;
+	for (i = 0; i < M; i++) printf("%4d", i);
+	for (i = 0; i < N; i++) {
+		if (!(i%10)) printf("\n%4d%4d", i/10, memory[i]);
+			else printf("%4d", memory[i]);
+	}
+	return 0;
+}

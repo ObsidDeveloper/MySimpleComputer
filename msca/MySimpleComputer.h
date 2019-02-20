@@ -2,6 +2,7 @@
 #define MYSIMPLECOMPUTER_H
 
 #define N 100
+#define M 10
 
 extern int memory[N];
 
@@ -15,6 +16,7 @@ int sc_memorySave(char * filename);
 
 int sc_memoryLoad(char * filename);
 
+int sc_memoryPrint();
 
 #define flag0 0
 #define flag1 1

@@ -15,3 +15,4 @@ MyTerminal.o: MyTerminal.c
 clear:
 	rm *.exe
 	rm *.o
+	rm *.a

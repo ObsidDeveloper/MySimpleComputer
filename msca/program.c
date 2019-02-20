@@ -3,18 +3,21 @@
 
 int main() {
 	sc_memoryInit();
-	sc_memorySet(34, 23);
+	printf("setting in 34 number 23, result - %d", sc_memorySet(34, 23));
 	int v;
 	sc_memoryGet(34, &v);
 	printf("\nmust be 23 - %d", v);
 	sc_memorySave("data.bin");
+	printf("\nsaved in data.bin");
 	FILE *f = fopen("data.bin", "rb");
 	fseek(f, 0, 2);
-	printf("\nmust be 400 or 800 - %d", ftell(f));
+	printf("\nmust be 400 bytes - %d", ftell(f));
 	fclose(f);
+	sc_memoryLoad("data.bin");
+	printf("\nloaded");
 	
 	sc_regInit();
-	printf("\n flag 67 - error, flag 67 in reality: %d", sc_regGet(67, &v));
+	printf("\n set in flag 67 - must be error, %d", sc_regGet(67, &v));
 	sc_regSet(3, 1);
 	sc_regGet(3, &v);
 	printf("\non flag 3 init 1 - %d", v);
@@ -30,5 +33,6 @@ int main() {
 	sc_commandDecode(v, &c, &o);
 	printf("\n oper = %d, comm = %d", o, c);
 	printf("\nexpected: c - 16, o - 52");
+	sc_memoryPrint();
 	return 0;
 }
