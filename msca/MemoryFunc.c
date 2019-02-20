@@ -6,21 +6,22 @@ int memory[N];
 int sc_memoryInit() {
 	int index = 0;
 	for (; index < N; memory[index] = 0, index++);
-	return 1;
+	return 0;
 }
 
 int sc_memorySet(int address, int value) {
 	if (address > -1 && address < N) {
 		memory[address] = value;
-		if (memory[address] == value) return 1;
-	} else return 0;
+		if (memory[address] == value) return 0;
+	}
+	return -1;
 }
 
 int sc_memoryGet(int address, int * value) {
 	if (address > -1 && address < N) {
 		*value = memory[address];
-		return 1;
-	} else return 0;
+		return 0;
+	} else return -1;
 }
 
 int sc_memorySave(char * filename) {
@@ -28,9 +29,9 @@ int sc_memorySave(char * filename) {
 	if (file) {
 		fwrite(memory, sizeof(int), N, file);
 		fclose(file);
-		return 1;
+		return 0;
 	} else fclose(file);
-	return 0;
+	return -1;
 }
 
 int sc_memoryLoad(char * filename) {
@@ -38,7 +39,7 @@ int sc_memoryLoad(char * filename) {
 	if (file) {
 		fread(memory, sizeof(int), N, file);
 		fclose(file);
-		return 1;
+		return 0;
 	} fclose(file);
-	return 0;
+	return -1;
 }

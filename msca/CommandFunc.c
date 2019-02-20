@@ -38,9 +38,9 @@ int checkCommand(int command) {
 		command == MOVCA  ||
 		command == MOVCR
 	) {
-		return 1;
+		return 0;
 	}
-		else return 0;
+		else return -1;
 }
 
 int sc_commandEncode(int command, int operand, int * value) {
@@ -49,8 +49,8 @@ int sc_commandEncode(int command, int operand, int * value) {
 		*value = (*value) | command;
 		*value = (*value) << 7;
 		*value = (*value) | operand;
-		return 1;
-	} else return 0;
+		return 0;
+	} else return -1;
 }
 
 int sc_commandDecode(int value, int * command, int * operand) {
@@ -61,6 +61,6 @@ int sc_commandDecode(int value, int * command, int * operand) {
 	if (checkCommand(value)) {
 		*command = value;
 		*operand = buf;
-		return 1;
-	} else return 0;
+		return 0;
+	} else return -1;
 }

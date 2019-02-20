@@ -17,3 +17,8 @@ CommandFunc.o: CommandFunc.c
 	
 RegistrFunc.o: RegistrFunc.c
 	gcc -c RegistrFunc.c
+
+clear:
+	rm *.o
+	rm *.exe
+	rm *.a
