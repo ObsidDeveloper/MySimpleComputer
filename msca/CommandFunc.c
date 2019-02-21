@@ -44,13 +44,16 @@ int checkCommand(int command) {
 }
 
 int sc_commandEncode(int command, int operand, int * value) {
-	if (checkCommand(command)) {
+	if (!checkCommand(command)) {
+		sc_regSet(ERRORCOM, 0);
 		*value = (*value) & 0;
 		*value = (*value) | command;
 		*value = (*value) << 7;
 		*value = (*value) | operand;
 		return 0;
-	} else return -1;
+	}
+	sc_regSet(ERRORCOM, 1);
+	return ERRORCOM;
 }
 
 int sc_commandDecode(int value, int * command, int * operand) {
@@ -58,9 +61,12 @@ int sc_commandDecode(int value, int * command, int * operand) {
 	buf = value & bits7;
 	value = value >> 7;
 	value = value & bits7;
-	if (checkCommand(value)) {
+	if (!checkCommand(value)) {
+		sc_regSet(ERRORCOM, 0);
 		*command = value;
 		*operand = buf;
 		return 0;
-	} else return -1;
+	}
+	sc_regSet(ERRORCOM, 1);
+	return ERRORCOM;
 }

@@ -11,37 +11,46 @@ int sc_memoryInit() {
 
 int sc_memorySet(int address, int value) {
 	if (address > -1 && address < N) {
+		sc_regSet(WRONGADD, 0);
 		memory[address] = value;
 		if (memory[address] == value) return 0;
 	}
-	return -1;
+	sc_regSet(WRONGADD, 1);
+	return WRONGADD;
 }
 
 int sc_memoryGet(int address, int * value) {
 	if (address > -1 && address < N) {
+		sc_regSet(WRONGADD, 0);
 		*value = memory[address];
 		return 0;
-	} else return -1;
+	}
+	sc_regSet(WRONGADD, 1);
+	return WRONGADD;
 }
 
 int sc_memorySave(char * filename) {
 	FILE *file = fopen(filename, "wb");
 	if (file) {
+		sc_regSet(ERRORFILE, 0);
 		fwrite(memory, sizeof(int), N, file);
 		fclose(file);
 		return 0;
 	} else fclose(file);
-	return -1;
+	sc_regSet(ERRORFILE, 1);
+	return ERRORFILE;
 }
 
 int sc_memoryLoad(char * filename) {
 	FILE *file = fopen(filename, "rb");
 	if (file) {
+		sc_regSet(ERRORFILE, 0);
 		fread(memory, sizeof(int), N, file);
 		fclose(file);
 		return 0;
 	} fclose(file);
-	return -1;
+	sc_regSet(ERRORFILE, 1);
+	return ERRORFILE;
 }
 
 int sc_memoryPrint() {

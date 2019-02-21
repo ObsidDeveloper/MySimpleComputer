@@ -14,12 +14,15 @@ int sc_regSet(int flag, int value) {
 				else return -1;
 		return 0;
 	}
-	return -1;
+	sc_regSet(WRONGFLAG, 1);
+	return WRONGFLAG;
 }
 
 int sc_regGet(int flag, int * value) {
 	if (-1 < flag && flag < 32) {
 		*value =  (registr >> flag) & 0x1;
 		return 0;
-	} else return -1;
+	}
+	sc_regSet(WRONGFLAG, 1);
+	return WRONGFLAG;
 }
