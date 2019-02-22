@@ -40,3 +40,14 @@ int bc_box(int leftX, int leftY, int deltaX, int deltaY) {
 
 	return 0;
 }
+
+int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colors fgcolor) {
+	/*variables must be here*/
+	mt_gotoXY(x, y);
+	mt_setbgcolor(bgcolor);
+	mt_setfgcolor(fgcolor);
+	/*this - code*/
+	mt_setbgcolor(BLACK);
+	mt_setfgcolor(GREEN);
+	mt_gotoXY(0, 0);
+}
