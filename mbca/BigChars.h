@@ -4,6 +4,8 @@
 #define EN_ACS "\E(0"
 #define DS_ACS "\E(B"
 
+#define ACS_CKBOARD "a"
+
 #define horline "q"
 #define vertline "x"
 #define upleftcorner "l"
