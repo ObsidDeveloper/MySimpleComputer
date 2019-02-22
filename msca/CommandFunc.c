@@ -1,4 +1,5 @@
 #include "MySimpleComputer.h"
+
 int checkCommand(int command) {
 	if (
 		command == READ   ||
@@ -58,12 +59,11 @@ int sc_commandEncode(int command, int operand, int * value) {
 
 int sc_commandDecode(int value, int * command, int * operand) {
 	int buf;
-	buf = value & bits7;
-	value = value >> 7;
-	value = value & bits7;
-	if (!checkCommand(value)) {
+	buf = (value >> 7) & bits7;
+	if (!checkCommand(buf)) {
 		sc_regSet(ERRORCOM, 0);
-		*command = value;
+		*command = buf;
+		buf = value & bits7;
 		*operand = buf;
 		return 0;
 	}
