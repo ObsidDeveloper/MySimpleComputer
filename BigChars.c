@@ -101,3 +101,12 @@ int bc_bigcharwrite(int fd, int *big, int count) {
 	}
 	return -1;
 }
+
+int bc_bigcharread(int fd, int *big, int need_count, int *count) {
+	if (fd != -1) {
+		if (BC_SIZE == 0 || BC_SIZE < 0) BC_SIZE = BC_SIZE_DEFAULT;
+		*count = read(fd, big, need_count * BC_SIZE);
+		return 0;
+	}
+	return -1;
+}
