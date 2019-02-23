@@ -73,10 +73,18 @@ int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colo
 int bc_setbigcharpos(int *big, int x, int y, int value) {
 	if (-1 < x && x < 8 && -1 < y && y < 8) {
 		if (value) {
-			big[x % 4] = big[x % 4] | (0x1 << (7 - y));
+			big[x % 4] = big[x % 4] | (0x1 << (8 * (x + 1) - 1 - y));
 		} else {
-			big[x % 4] = big[x % 4] & (~(0x1 << y))
+			big[x % 4] = big[x % 4] & (~(0x1 << (8 * (x + 1) - 1 - y)))
 		}
+		return 0;
+	}
+	return -1;
+}
+
+int bc_getbigcharpos(int *big, int x, int y, int *value) {
+	if (-1 < x && x < 8 && -1 < y && y < 8) {
+		value = big[x % 4];
 		return 0;
 	}
 	return -1;
