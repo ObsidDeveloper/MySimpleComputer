@@ -16,4 +16,5 @@
 
 int bc_printA (char *str);
 int bc_box(int leftX, int leftY, int deltaX, int deltaY);
+int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colors fgcolor);
 #endif

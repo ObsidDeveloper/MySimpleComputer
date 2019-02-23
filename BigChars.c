@@ -2,7 +2,7 @@
 
 #include "msca/MySimpleComputer.h"
 #include "mta/MyTerminal.h"
-#include "mbca/BigChars.h"
+#include "BigChars.h"
 
 int bc_printA (char *str) {
 	printf(EN_ACS);
@@ -43,11 +43,29 @@ int bc_box(int leftX, int leftY, int deltaX, int deltaY) {
 
 int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colors fgcolor) {
 	/*variables must be here*/
+	mt_clrscr();
 	mt_gotoXY(x, y);
 	mt_setbgcolor(bgcolor);
 	mt_setfgcolor(fgcolor);
 	/*this - code*/
+	int i, by, bi;
+	int buf, bitbuf;
+	for (i = 0; i < 2; i++) {
+		for (by = 0; by < 4; by++) {
+			buf = (symbol[i] >> (by * 8)) & bits8;
+			for (bi = 0; bi < 8; bi++) {
+				bitbuf = (buf >> (7 - bi)) & 0x1;
+				if (bitbuf) {
+					bc_printA(ACS_CKBOARD);
+				} else printf(" ");
+			}
+			mt_gotoXY(++x, y);
+		}
+	}
 	mt_setbgcolor(BLACK);
 	mt_setfgcolor(GREEN);
-	mt_gotoXY(0, 0);
+	int xt, yt;
+	mt_getscreensize(&xt, &yt);
+	mt_gotoXY(xt, 3);
+	return 0;
 }

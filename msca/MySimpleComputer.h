@@ -32,7 +32,8 @@ int sc_regSet(int flag, int value);
 
 int sc_regGet(int flag, int * value);
 
-#define bits7 0x7f; /* 0111 1111 in bits, - to getting (&) first 7 bits of value*/
+#define bits7 0x7f /* 0111 1111 in bits, - to getting (&) first 7 bits of value*/
+#define bits8 0xff
 
 enum {
 	/* Input/Output */
