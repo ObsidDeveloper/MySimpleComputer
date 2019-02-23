@@ -66,5 +66,71 @@ do
 	printf "a"
 done
 
+
+printf "\E[10;15H"
+printf "l"
+for val in {16..24}
+do
+	printf "q"
+done
+printf "k"
+
+for val2 in {11..18}
+do
+	printf "\E[$val2;15H"
+	printf "x"
+done
+
+printf "\E[18;15H"
+printf "j"
+printf "\E[18;6H"
+
+for val in {16..24}
+do
+	printf "q"
+done
+
+printf "\E[18;5H"
+printf "m"
+
+for val2 in {17..11}
+do
+	printf "\E[$val2;16H"
+	printf "x"
+	printf "\E[%val2;15H"
+	printf "a"
+done
+
+
+
+for val2 in {17..11}
+do
+	printf "\E[$val2;24H"
+	printf "a"
+done
+
+printf "\E[17;16H"
+
+for i in {1..9}
+do
+	printf "a"
+done
+
+printf "\E[11;16H"
+
+for val2 in {11..17}
+do
+	printf "\E[$val2;16H"
+	printf "a"
+done
+
+printf "\E[14;16H"
+
+for i in {1..9}
+do
+	printf "a"
+done
+
+
 printf "\E[25;1H"
 printf "\E(B"
