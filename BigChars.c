@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h> 
 
 #include "msca/MySimpleComputer.h"
 #include "mta/MyTerminal.h"
@@ -84,8 +87,12 @@ int bc_setbigcharpos(int *big, int x, int y, int value) {
 
 int bc_getbigcharpos(int *big, int x, int y, int *value) {
 	if (-1 < x && x < 8 && -1 < y && y < 8) {
-		value = big[x % 4];
+		value = big[x % 4] & (0x1 << (8 * (x + 1) - 1 - y));
 		return 0;
 	}
 	return -1;
+}
+
+int bc_bigcharwrite(int fd, int *big, int count) {
+	
 }
