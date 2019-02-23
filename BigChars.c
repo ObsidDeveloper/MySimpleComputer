@@ -94,5 +94,9 @@ int bc_getbigcharpos(int *big, int x, int y, int *value) {
 }
 
 int bc_bigcharwrite(int fd, int *big, int count) {
-	
+	if (fd != -1) {
+		if (write(fd, big, count) == count) return 0;
+		return -1;
+	}
+	return -1;
 }
