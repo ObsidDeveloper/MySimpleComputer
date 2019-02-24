@@ -9,6 +9,14 @@
 struct termios const _term_st;
 struct termios term;
 
+int rk_myTermSave(void) {
+	return tcgetattr(1, term);
+}
+
+int rk_myTermRestore(void) {
+	return tcsetattr(1, TCSADRAIN, &term);
+}
+
 int rk_myTermRegine(struct termios const *current, int regime, int vtime, int vmin, int echo, int sigint) {
 	if (CHECK_REG_ECH_SIG) return -1;
 	
@@ -22,5 +30,12 @@ int rk_myTermRegine(struct termios const *current, int regime, int vtime, int vm
 
 	if (sigint) newstate.c_lflag |= ISIG;
 		else newstate.c_lflag &= ~ISIG;
+
+	newstate.c_cc[VMIN] = vmin;
+	newstate.c_cc[VTIME] = vtime;
+	tcsetattr(0, TSCANOW, &newstate);
+
 	return 0;
 }
+
+/*Thank you, Mioko!*/
