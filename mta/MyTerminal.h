@@ -1,6 +1,8 @@
 #ifndef MYTERMINAL_H
 #define MYTERMINAL_H
 
+#define TERM "/dev/tty"
+
 #define BGCOLOR "\E[4%dm"
 #define FGCOLOR "\E[3%dm"
 #define CLS "\E[H\E[J"
