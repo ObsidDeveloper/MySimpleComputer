@@ -18,8 +18,14 @@ int main() {
 	bc_printbigchar(s, 10, 10, WHITE, RED);
 	int buf = open("met.txt", O_WRONLY);
 	BC_SIZE = 2;
-	bc_bigcharwrite(buf, s, 1);
-	printf("%d", buf);
+	int result = bc_bigcharwrite(buf, s, 1);
+	printf("result of writing: %d\n", result);
+	close(buf);
+	buf = open("met.txt", O_RDONLY);
+	int c;
+	result = bc_bigcharread(buf, s, 1, &c);
+	bc_printbigchar(s, 10, 10, GREEN, BLUE);
+	printf("result: %d\n c: %d\ndescryptor: %d", result, c, buf);
 	close(buf);
 	return 0;
 }
