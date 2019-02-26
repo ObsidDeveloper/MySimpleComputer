@@ -17,5 +17,6 @@ int main() {
 	mt_setbgcolor(RED);
 	printf("\nPrint anykey to set fgcolor green");
 	getchar();
-	mt_setfgcolor(GREEN);
+	mt_setfgcolor(BLUE);
+	printf("\nShit");
 }

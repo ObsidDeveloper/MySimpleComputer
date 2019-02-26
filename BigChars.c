@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 #include <fcntl.h> 
 
 #include "msca/MySimpleComputer.h"
@@ -78,7 +80,7 @@ int bc_setbigcharpos(int *big, int x, int y, int value) {
 		if (value) {
 			big[x % 4] = big[x % 4] | (0x1 << (8 * (x + 1) - 1 - y));
 		} else {
-			big[x % 4] = big[x % 4] & (~(0x1 << (8 * (x + 1) - 1 - y)))
+			big[x % 4] = big[x % 4] & (~(0x1 << (8 * (x + 1) - 1 - y)));
 		}
 		return 0;
 	}
@@ -87,7 +89,7 @@ int bc_setbigcharpos(int *big, int x, int y, int value) {
 
 int bc_getbigcharpos(int *big, int x, int y, int *value) {
 	if (-1 < x && x < 8 && -1 < y && y < 8) {
-		value = big[x % 4] & (0x1 << (8 * (x + 1) - 1 - y));
+		*value = big[x % 4] & (0x1 << (8 * (x + 1) - 1 - y));
 		return 0;
 	}
 	return -1;

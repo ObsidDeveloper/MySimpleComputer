@@ -4,7 +4,7 @@
 #define N 100
 #define M 10
 
-extern int memory[N];
+int memory[N];
 
 int sc_memoryInit();
 
@@ -24,7 +24,7 @@ int sc_memoryPrint();
 #define ERRORCOM 4
 #define WRONGOP 5
 
-extern int registr;
+int registr;
 
 int sc_regInit(void);
 
@@ -35,7 +35,7 @@ int sc_regGet(int flag, int * value);
 #define bits7 0x7f /* 0111 1111 in bits, - to getting (&) first 7 bits of value*/
 #define bits8 0xff
 
-enum {
+enum coms {
 	/* Input/Output */
 	READ   = 0x10,
 	WRITE  = 0x11,

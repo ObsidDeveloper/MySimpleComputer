@@ -1,5 +1,4 @@
 #include "MySimpleComputer.h"
-int registr;
 
 
 int sc_regInit(void) {
