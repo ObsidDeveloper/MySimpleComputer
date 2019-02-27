@@ -35,6 +35,8 @@ int main() {
 	printf("\n%d", c);
 	bc_getbigcharpos(s, 2, 2, &c);
 	printf("\n%d", c);
+	/*initbigchars();*/
+	bc_printbigchar(getbigchar(1), 15, 15, WHITE, BLUE);
 	mt_gotoXY(6, 8);
 	getchar();
 	return 0;

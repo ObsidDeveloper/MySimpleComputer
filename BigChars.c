@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
@@ -8,6 +9,7 @@
 #include "msca/MySimpleComputer.h"
 #include "mta/MyTerminal.h"
 #include "BigChars.h"
+
 
 int bc_printA (char *str) {
 	printf(EN_ACS);
@@ -112,4 +114,19 @@ int bc_bigcharread(int fd, int *big, int need_count, int *count) {
 		return 0;
 	}
 	return -1;
+}
+
+int initbigchars() {
+	bigchar_codetable[0] = 0x4a663c00;
+	bigchar_codetable[1] = 0x003c6652;
+	
+	bigchar_codetable[2] = 0x140c0400;
+	bigchar_codetable[3] = 0x1f040404;
+}
+
+int * getbigchar(int number) {
+	int *bg = (int *)malloc(2 * sizeof(int));
+	bg[0] = bigchar_codetable[number];
+	bg[1] = bigchar_codetable[number + 1];
+	return bg;
 }

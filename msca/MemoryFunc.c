@@ -2,7 +2,6 @@
 #include "MySimpleComputer.h"
 
 
-
 int sc_memoryInit() {
 	int index = 0;
 	for (; index < N; memory[index] = 0, index++);

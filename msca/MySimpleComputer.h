@@ -4,6 +4,7 @@
 #define N 100
 #define M 10
 
+
 int memory[N];
 
 int sc_memoryInit();

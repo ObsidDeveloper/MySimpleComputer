@@ -29,4 +29,15 @@ int bc_getbigcharpos(int *big, int x, int y, int *value);
 
 int bc_bigcharwrite(int fd, int *big, int count);
 int bc_bigcharread(int fd, int *big, int need_count, int *count);
+
+int * getbigchar(int number);
+int initbigchars();
+
+/*BigChars*/
+
+int bigchar_codetable[4] = {
+	0x4a663c00, 0x003c6652,
+	0x140c0400, 0x1f040404
+};
+
 #endif
