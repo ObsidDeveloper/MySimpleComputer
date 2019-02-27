@@ -54,10 +54,11 @@ int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colo
 	mt_setfgcolor(fgcolor);
 	/*this - code*/
 	int i, by, bi;
-	int buf, bitbuf;
+	int buf, bitbuf, bytebuf;
 	for (i = 0; i < 2; i++) {
 		for (by = 0; by < 4; by++) {
-			buf = (symbol[i] >> (by * 8)) & bits8;
+			bytebuf = symbol[i];
+			buf = (bytebuf >> (by * 8)) & bits8;
 			for (bi = 0; bi < 8; bi++) {
 				bitbuf = (buf >> (7 - bi)) & 0x1;
 				if (bitbuf) {
@@ -78,9 +79,9 @@ int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colo
 int bc_setbigcharpos(int *big, int x, int y, int value) {
 	if (-1 < x && x < 8 && -1 < y && y < 8) {
 		if (value) {
-			big[x % 4] = big[x % 4] | (0x1 << (8 * (x + 1) - 1 - y));
+			big[x / 4] = big[x / 4] | (0x1 << (8 * (x + 1) - 1 - y));
 		} else {
-			big[x % 4] = big[x % 4] & (~(0x1 << (8 * (x + 1) - 1 - y)));
+			big[x / 4] = big[x / 4] & (~(0x1 << (8 * (x + 1) - 1 - y)));
 		}
 		return 0;
 	}
@@ -89,7 +90,7 @@ int bc_setbigcharpos(int *big, int x, int y, int value) {
 
 int bc_getbigcharpos(int *big, int x, int y, int *value) {
 	if (-1 < x && x < 8 && -1 < y && y < 8) {
-		*value = big[x % 4] & (0x1 << (8 * (x + 1) - 1 - y));
+		*value = (big[x / 4] >> (8 * (x + 1) - 1 - y)) & 0x1;
 		return 0;
 	}
 	return -1;
