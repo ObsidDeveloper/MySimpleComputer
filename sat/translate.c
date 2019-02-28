@@ -4,10 +4,18 @@
 #include <sys/ioctl.h>
 
 #include "SimpleTranslator.h"
+#include "../msca/MySimpleComputer.h"
 
 int * translate(int fd, int *size) {
 	char *SAcode = NULL;
 	int size_ofprogram = load_SAfile(fd, SAcode);
+
+	if (size_ofprogram == -1) {
+		printf("cannot read source file\n");
+		return NULL;
+	}
+
+	int size_ofbin = 0;
 }
 
 int load_SAfile(int fd, char *SAcode) {
