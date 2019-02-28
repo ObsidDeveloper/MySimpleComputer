@@ -5,4 +5,6 @@ int sat(char *source, char *bin_filename) {
 		printf("sat error: \n");
 		return -1;
 	}
+
+	return 0;
 }
