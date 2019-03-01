@@ -4,13 +4,13 @@
 
 int checkSyntax(char *str, int remainspace, int currentstage) {
 	if (str == NULL) return -1;
-	char buffer = getlogos(str, remainspace);
+	char buffer = getlogos(str, &remainspace);
 	if (!buffer) return -1;
 
 	if (toInt(buffer) == currentstage) {
 		missSpaces(str);
 		currentline.nummer = currentstage;
-		//getlogos
+		getlogos(str, &remainspace);
 	}
 }
 
