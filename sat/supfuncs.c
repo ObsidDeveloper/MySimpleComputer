@@ -18,7 +18,10 @@ int checkSyntax(char *str, int remainspace, int currentstage) {
 		if (value == -1 || N - 1 < oper || oper < 0 ) return value;
 		currentline.command = value;
 		currentline.operand = oper;
+		missString(str, &remainspace);
+		return 0;
 	}
+	return -1;
 }
 
 char * getlogos(char *str, int *remainspace) {
