@@ -4,13 +4,19 @@
 
 int checkSyntax(char *str, int remainspace, int currentstage) {
 	if (str == NULL) return -1;
-	char buffer = getlogos(str, &remainspace);
+	char *buffer = getlogos(str, &remainspace);
 	if (!buffer) return -1;
 
 	if (toInt(buffer) == currentstage) {
 		missSpaces(str);
 		currentline.nummer = currentstage;
-		getlogos(str, &remainspace);
+		buffer = getlogos(str, &remainspace);
+		int value = returnCommand(buffer);
+		missSpaces(str);
+		buffer = getlogos(str, &remainspace);
+		int oper = toInt(buffer);
+		if (value == -1 || N - 1 < oper || oper < 0 ) return value;
+		currentline.command 
 	}
 }
 
@@ -43,10 +49,10 @@ int missSpaces(char *str, int *remainspace) {
 
 int toInt(char *str) {
 	int i;
-	int N = 0;
+	int n = 0;
 	for (i = 0; i < strlen(str); i++) {
-		N *= 10;
-		N += str[i] % 46;
+		n *= 10;
+		n += str[i] % 46;
 	}
-	return N;
+	return n;
 }
