@@ -16,7 +16,8 @@ int checkSyntax(char *str, int remainspace, int currentstage) {
 		buffer = getlogos(str, &remainspace);
 		int oper = toInt(buffer);
 		if (value == -1 || N - 1 < oper || oper < 0 ) return value;
-		currentline.command 
+		currentline.command = value;
+		currentline.operand = oper;
 	}
 }
 
@@ -55,4 +56,16 @@ int toInt(char *str) {
 		n += str[i] % 46;
 	}
 	return n;
+}
+
+int missString(char *str, int &remainspace) {
+	int i = 0;
+	while (*str != "\n") {
+		str++;
+		if (i == *remainspace) return -1;
+		i++;
+	}
+	str++;
+	*remainspace -= i;
+	return 0;
 }
