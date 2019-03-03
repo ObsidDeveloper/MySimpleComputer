@@ -1,11 +1,18 @@
 #ifndef SAT_H
 #define SAT_H
 
+/*
+This is a structure template.
+Struct save nummer of memory cell - nummer
+and data of MSC-command
+*/
 struct codeline_info {
 	int command;
 	int operand;
 	int nummer;
 };
+/*Used structure to saving data to translation*/
+struct codeline_info currentline;
 
 /*support*/
 int checkSyntax(char *str, int remainspace, int currentstage);

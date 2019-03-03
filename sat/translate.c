@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <string.h>
 
-#include "SimpleTranslator.h"
+#include "sat.h"
 #include "../msca/MySimpleComputer.h"
 
 int * translate(int fd, int *size) {
@@ -35,6 +36,39 @@ int load_SAfile(int fd, char *SAcode) {
 			return -1;
 		}
 		return -1;
+	}
+	return -1;
+}
+
+int returnCommand(char *str) {
+	switch (strlen(str)) {
+		case 2: {
+			if (!strcmp(str, "JZ")) return JZ;
+			return -1;
+		}
+		case 3: {
+			if (!strcmp(str, "ADD")) return ADD;
+			if (!strcmp(str, "SUB")) return SUB;
+			if (!strcmp(str, "MUL")) return MUL;
+			return -1;
+		}
+		case 4: {
+			if (!strcmp(str, "READ")) return READ;
+			if (!strcmp(str, "LOAD")) return LOAD;
+			if (!strcmp(str, "JUMP")) return JUMP;
+			if (!strcmp(str, "JNEG")) return JNEG;
+			if (!strcmp(str, "HALT")) return HALT;
+			return -1;
+		}
+		case 5: {
+			if (!strcmp(str, "WRITE")) return WRITE;
+			if (!strcmp(str, "STORE")) return STORE;
+			return -1;
+		}
+		case 6: {
+			if (!strcmp(str, "DIVIDE")) return DIVIDE;
+			return -1;
+		}
 	}
 	return -1;
 }
