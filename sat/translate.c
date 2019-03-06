@@ -15,7 +15,17 @@ int * translate(int fd, int *size) {
 		printf("cannot read source file\n");
 		return NULL;
 	}
-
+	
+	int stringCount = countOfStrings(SAcode);
+	int *binfile = (int *)malloc(sizeof(int) * stringCount);
+	int i;
+	int check_status;
+	for (i = 0; i < stringCount; i++) {
+		check_status = checkSyntax(SAcode, &size_ofprogram, i)
+		if (!check_status) {
+			satCommandEncode(&())
+		}
+	}
 	int size_ofbin = 0;
 }
 
@@ -42,6 +52,10 @@ int load_SAfile(int fd, char *SAcode) {
 
 int returnCommand(char *str) {
 	switch (strlen(str)) {
+		case 1: {
+			if (*str == '=') return 0;
+			return -1;
+		}
 		case 2: {
 			if (!strcmp(str, "JZ")) return JZ;
 			return -1;
@@ -72,3 +86,18 @@ int returnCommand(char *str) {
 	}
 	return -1;
 }
+
+int satCommandEncode(int *cell) {
+	*cell = (*cell) & 0;
+	if (currentline.command) {
+		*cell = (*cell) | currentline.command;
+		*cell = (*cell) << 7;
+	} else {
+		*cell = (*cell) | currentline.operand;
+		*cell = (*cell) & masc_bit14;
+		return 0;
+	}
+	*cell = (*cell) | currentline.operand;
+	return 0;
+}
+

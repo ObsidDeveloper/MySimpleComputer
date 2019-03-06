@@ -14,6 +14,7 @@ struct codeline_info {
 /*Used structure to saving data to translation*/
 struct codeline_info currentline;
 
+#define masc_bit14 0x7fff
 /*support*/
 int checkSyntax(char *str, int remainspace, int currentstage);
 char * getlogos(char *str, int *remainspace);

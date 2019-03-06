@@ -2,23 +2,44 @@
 #include <stdlib.h>
 #include "sat.h"
 
-int checkSyntax(char *str, int remainspace, int currentstage) {
+int delta;
+
+int initDelta() {
+	delta = 0;
+	return 0;
+}
+
+int changeDelta(int change_delta, int remainspace) {
+	if (change_delta <= remainspace) {
+		delta += change_delta;
+		return 0;
+	}
+	return -1;
+}
+
+int checkSyntax(char *str, int *remainspace, int currentstage) {
 	if (str == NULL) return -1;
-	char *buffer = getlogos(str, &remainspace);
+	initDelta();
+	char *buffer = getlogos(str, remainspace);
+	
 	if (!buffer) return -1;
 
 	if (toInt(buffer) == currentstage) {
 		missSpaces(str);
 		currentline.nummer = currentstage;
-		buffer = getlogos(str, &remainspace);
+		buffer = getlogos(str, remainspace);
+
 		int value = returnCommand(buffer);
 		missSpaces(str);
-		buffer = getlogos(str, &remainspace);
+
+		buffer = getlogos(str, remainspace);
 		int oper = toInt(buffer);
-		if (value == -1 || N - 1 < oper || oper < 0 ) return value;
+
+		if (value == -1) return value;
+
 		currentline.command = value;
 		currentline.operand = oper;
-		missString(str, &remainspace);
+		if (missString(str, &remainspace)) return 1;
 		return 0;
 	}
 	return -1;
@@ -33,10 +54,11 @@ char * getlogos(char *str, int *remainspace) {
 			return NULL;
 		}
 		logos[i] = *str;
-		str++;
+		i++;
 	}
 	logos[i] = 0;
 	*remainspace -= i;
+	changeDelta(i, *remainspace);
 	return logos;
 }
 
@@ -44,9 +66,11 @@ int missSpaces(char *str, int *remainspace) {
 	if (str == NULL) return -1;
 
 	int i = 0;
-	while (str[i] == ' ') {
+	while (*str == ' ') {
 		str++;
+		i++;
 	}
+	changeDelta(i, *remainspace);
 	return 0;
 }
 
@@ -61,7 +85,16 @@ int toInt(char *str) {
 	return n;
 }
 
-int missString(char *str, int &remainspace) {
+int countOfStrings(char *str) {
+	if (str == NULL) return -1;
+	int count = 1; /*If execution came here, then at least one string is.*/
+	while (*str) {
+		if (*str == "\n") count++;
+	}
+	return count;
+}
+
+int missString(char *str, int *remainspace) {
 	int i = 0;
 	while (*str != "\n") {
 		str++;
@@ -70,5 +103,6 @@ int missString(char *str, int &remainspace) {
 	}
 	str++;
 	*remainspace -= i;
+	changeDelta(i, *remainspace);
 	return 0;
 }
