@@ -85,6 +85,7 @@ int toInt(char *str) {
 	return n;
 }
 
+/*This function counts the number of lines separated by a carriage return.*/
 int countOfStrings(char *str) {
 	if (str == NULL) return -1;
 	int count = 1; /*If execution came here, then at least one string is.*/
