@@ -16,7 +16,7 @@ struct block_info {
 	int y;
 	int deltaX;
 	int deltaY;
-	char *str; 
+	char str[16]; 
 	Colors block_color;
 	Colors bg_textcolor;
 	Colors fg_textcolor; 
