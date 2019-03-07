@@ -4,7 +4,7 @@
 #include <termios.h>
 
 #include "mta/MyTerminal.h"
-#include "rk/ReadKey.h"
+#include "ReadKey.h"
 
 struct termios const _term_st;
 struct termios term;
@@ -38,7 +38,7 @@ int rk_myTermRegine(struct termios const *current, int regime, int vtime, int vm
 	return 0;
 }
 
-int rk_readKey(enum keys *key) {
+int rk_readKey(enum Keys *key) {
 	int term = open(TERM, O_RDWR);
 	char buf;
 
@@ -47,41 +47,27 @@ int rk_readKey(enum keys *key) {
 	read(term, &buf, 1);
 
     switch (buf) {
-		case 'q':
-			*key = EXIT;
-			break;
-		case 'l':
-			*key = LOAD;
-			break;
-		case 's':
-			*key = SAVE;
-			break;
-		case 'r':
-			*key = RUN;
-			break;
-		case 't':
-			*key = STEP;
-			break;
-		case 'i':
-			*key = RESET;
-			break;
-		case 'e':
-			*key = EDIT;
-			break;
+		case 'q': {*key = EXIT; break;}
+		case 'l': {*key = KLOAD; break;}
+		case 's': {*key = SAVE; break;}
+		case 'r': {*key = RUN; break;}
+		case 't': {*key = STEP; break;}
+		case 'i': {*key = RESET; break;}
+		case 'e': {*key = EDIT; break;}
 		case '\E': {
-			read (term, &buf, 1);
-			read (term, &buf, 1);
+			read(term, &buf, 1);
+			read(term, &buf, 1);
 			switch (buf) {
-				case 65:
+				case 'A':
 					*key = UP;
 					break;
-				case 66:
+				case 'B':
 					*key = DOWN;
 					break;
-				case 67:
+				case 'C':
 					*key = RIGHT;
 					break;
-				case 68:
+				case 'D':
 					*key = LEFT;
 					break;
 				case '1':
@@ -106,9 +92,17 @@ int rk_readKey(enum keys *key) {
 			break;
     }
     rk_myTermRegime(&termState, 1, 0, 0, 1, 1);
-    close (term);
+    close(term);
 
 	return 0;
+}
+
+void termInit() {
+    rk_myTermSave(&__term_state);
+}
+
+void defaultTermSettings(struct termios *termState) {
+    *termState = __term_state;
 }
 
 /*Thank you, Mioko!*/
