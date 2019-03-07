@@ -9,6 +9,8 @@ int term_cols;
 enum Colors bg_msc;
 enum Colors fg_msc;
 
+enum Colors highlight;
+
 struct block_info {
 	int x;
 	int y;
@@ -19,5 +21,11 @@ struct block_info {
 	enum Colors bg_textcolor;
 	enum Colors fg_textcolor; 
 };
+
+struct block_info display_mem;
+struct block_info display_accum;
+struct block_info display_opers;
+struct block_info display_instr_count;
+struct block_info display_keys;
 
 #endif

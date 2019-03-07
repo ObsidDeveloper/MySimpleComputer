@@ -4,6 +4,7 @@
 #include "../msca/MySimpleComputer.h"
 #include "../mta/MyTerminal.h"
 #include "../ReadKey.h"
+#include "console.h"
 
 int creatBlock(struct block_info *block, int posreg) {
 	if (term_rows < block->x || block->x < 0) return -1;
@@ -21,11 +22,32 @@ int creatBlock(struct block_info *block, int posreg) {
 	mt_setbgcolor(block->fg_textcolor);
 	printf(" %s ", block->str);
 	mt_gotoXY(block->x, block->y);
-	setDefaultColors();
+	setDefaultColorsMSC();
 	return 0;
 }
 
-int setDefaultColors() {
+int highlightCell(int nummer, enum Colors light) {
+	int value;
+	sc_memoryGet(nummer, &value);
+	int x, y;
+	returnCellPos(nummer, &x, &y);
+	mt_gotoXY(x, y);
+	mt_setbgcolor(light);
+	printf("+%04X", value);
+	setDefaultColorsMSC();
+	return 0;
+}
+
+int returnCellPos(int nummer, int *x, int *y) {
+	if (N <= nummer || nummer < 0) return -1;
+	*x = display_memory.x + 1;
+	*y = dixplay_memory.y + 1;
+	*x += 2*(nummer/10);
+	*y += (nummer%10)*(5 + 1);
+	return 0;
+}
+
+int setDefaultColorsMSC() {
 	mt_setfgcolor(fg_msc);
 	mt_setbgcolor(bg_msc);
 	return 0;
