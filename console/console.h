@@ -27,5 +27,6 @@ struct block_info display_accum;
 struct block_info display_opers;
 struct block_info display_instr_count;
 struct block_info display_keys;
+struct block_info display_bigchar;
 
 #endif
