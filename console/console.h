@@ -17,9 +17,9 @@ struct block_info {
 	int deltaX;
 	int deltaY;
 	char *str; 
-	enum Colors block_color;
-	enum Colors bg_textcolor;
-	enum Colors fg_textcolor; 
+	Colors block_color;
+	Colors bg_textcolor;
+	Colors fg_textcolor; 
 };
 
 struct block_info display_mem;
