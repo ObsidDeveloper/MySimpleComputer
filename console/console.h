@@ -43,4 +43,6 @@ int initBigCharDisplay();
 
 int initHighLight(enum Colors c);
 
+int InstrCount;
+
 #endif

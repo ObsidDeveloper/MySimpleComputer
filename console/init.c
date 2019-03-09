@@ -23,6 +23,7 @@ int initialization() {
 	initKeysDisplay();
 	initBigCharDisplay();
 	
+	InstrCount = 0;
 	return 0;
 }
 

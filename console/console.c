@@ -43,3 +43,10 @@ int displayAccum(struct block_info *acc_block) {
 	  function that returns the value of this register*/
 	return 0;
 }
+
+int displayCount(struct block_info *count_block) {
+	int x = count_block->x + 1;
+	int y = count_block->y + 4;
+	printNumber(x, y, InstrCount, DEFAULT);
+	return 0;
+}
