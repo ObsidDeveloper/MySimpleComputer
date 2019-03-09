@@ -33,4 +33,11 @@ struct block_info display_instr_count; /*nummer of cell in memory*/
 struct block_info display_keys; /*help-list of keys for user*/
 struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
 
+int initMemoryDisplay();
+int initAccumDisplay();
+int initCountDisplay();
+int initOpersDisplay();
+int initKeysDisplay();
+int initBigCharDisplay();
+
 #endif

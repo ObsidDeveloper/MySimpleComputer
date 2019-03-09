@@ -21,6 +21,7 @@ int initialization() {
 	initCountDisplay();
 	initOpersDisplay();
 	initKeysDisplay();
+	initBigCharDisplay();
 	
 	return 0;
 }
@@ -82,5 +83,17 @@ int initKeysDisplay() {
 	display_keys.fg_textcolor = GREEN;
 	
 	strcpy(display_accum.str, "Operation");
+	return 0;
+}
+
+int initBigCharDisplay() {
+	display_bigchar.x = 13;
+	display_bigchar.y = 0;
+	display_bigchar.deltaX = 12;
+	display_bigchar.deltaY = 56;
+	display_bigchar.bg_textcolor = BLUE;
+	display_bigchar.fg_textcolor = GREEN;
+	
+	strcpy(display_bigchar.str, "Zoom");
 	return 0;
 }
