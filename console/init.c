@@ -97,8 +97,3 @@ int initBigCharDisplay() {
 	strcpy(display_bigchar.str, "Zoom");
 	return 0;
 }
-
-int initHighLight(enum Colors c) {
-	highlight = c;
-	return 0;
-}
