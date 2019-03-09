@@ -34,3 +34,12 @@ int displayMemory(struct block_info *mem_block) {
 	}
 	return 0;
 }
+
+int displayAccum(struct block_info *acc_block) {
+	int x = acc_block->x + 1;
+	int y = acc_block->y + 4;
+	printNumber(x, y, accumulator, DEFAULT);
+	/*TODO: create a battery register interface
+	  function that returns the value of this register*/
+	return 0;
+}
