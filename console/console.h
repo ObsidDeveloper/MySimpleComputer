@@ -3,6 +3,10 @@
 
 #include "../mta/MyTerminal.h"
 
+#define NEED_COLS 85
+#define NEED_ROWS 25
+
+
 int term_rows;
 int term_cols;
 
@@ -22,11 +26,11 @@ struct block_info {
 	Colors fg_textcolor; 
 };
 
-struct block_info display_mem;
-struct block_info display_accum;
+struct block_info display_mem; /*memory field*/
+struct block_info display_accum; /*field for accumulator value*/
 struct block_info display_opers;
-struct block_info display_instr_count;
-struct block_info display_keys;
-struct block_info display_bigchar;
+struct block_info display_instr_count; /*nummer of cell in memory*/
+struct block_info display_keys; /*help-list of keys for user*/
+struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
 
 #endif
