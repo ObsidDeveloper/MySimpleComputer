@@ -3,6 +3,7 @@
 
 int sc_regInit(void) {
 	registr = registr & 0;
+	accumulator = accumulator & 0;
 	return 0;
 }
 
