@@ -15,6 +15,7 @@ enum Colors fg_msc;
 
 enum Colors highlight;
 
+/*struct for saving data about a display*/
 struct block_info {
 	int x;
 	int y;
@@ -39,5 +40,7 @@ int initCountDisplay();
 int initOpersDisplay();
 int initKeysDisplay();
 int initBigCharDisplay();
+
+int initHighLight(enum Colors c);
 
 #endif
