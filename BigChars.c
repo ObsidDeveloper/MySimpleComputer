@@ -121,87 +121,95 @@ int bc_initBigChar(int *bigC, char symbol) {
 	
 	switch (value) {
 		case '-': {
-			bigC[0] = 0xFF000000;
+			bigC[0] = 0x000000FF;
 			bigC[1] = 0x0;
 			break;
 		}
         case '+': {
-        	big[0] = 0xFF181800;
-            big[1] = 0x1818;
+        	big[0] = 0x181818FF;
+            big[1] = 0xFF181818;
 			break;
 		}
         case '0': {
-        	big[0] = 0x818181FF;
-			big[1] = 0xFF818181;
+        	big[0] = 0xFF838589;
+			big[1] = 0x915131FF;
 			break;
 		}
         case '1': {
-        	big[0] = 0xC0D8F0E0;
-        	big[1] = 0xC0C0C0C0;
+        	big[0] = 0x01010101;
+        	big[1] = 0x01010101;
 			break;
 		}
         case '2': {
-        	big[0] = 0xFFC0C0FF;
-            big[1] = 0xFF030303;
+        	big[0] = 0xff0101ff;
+            big[1] = 0x808080ff;
 			break;
 		}
         case '3': {
-        	big[0] = 0xFFC0C0FF;
-            big[1] = 0xFFC0C0C0;
+        	big[0] = 0xFF0101FF;
+            big[1] = 0xFF0101FF;
 			break;
 		}
         case '4': {
-        	big[0] = 0xFFC3C3C3;
-        	big[1] = 0xC0C0C0C0;
+        	big[0] = 0x818181FF;
+        	big[1] = 0x01010101;
 			break;
 		}
-            big[0] = 4291019715;
-            big[1] = C0C0C0C0;
-            break;
-        case '5':
-            big[0] = 4278387711;
-            big[1] = 4290822336;
-            break;
-        case '6':
-            big[0] = 4278387711;
-            big[1] = 4291019715;
-            break;
-        case '7':
-            big[0] = 3233857791;
-            big[1] = 3233857728;
-            break;
-        case '8':
-            big[0] = 4291019775;
-            big[1] = 4291019715;
-            break;
-        case '9':
-            big[0] = 4291019775;
-            big[1] = 4290822336;
-            break;
-        case 'A':
-            big[0] = -8289793;
-            big[1] = -2122219135;
-            break;
-        case 'B':
-            big[0] = -14606017;
-            big[1] = -8286847;
-            break;
-        case 'C':
-            big[0] = 16843516;
-            big[1] = -66977535;
-            break;
-        case 'D':
-            big[0] = -1925111521;
-            big[1] = 522273153;
-            break;
-        case 'E':
-            big[0] = 1057030655;
-            big[1] = -16711423;
-            break;
-        case 'F':
-            big[0] = 1057030655;
-            big[1] = 16843009;
-            break;
+        case '5': {
+        	big[0] = 0xff8080ff;
+            big[1] = 0x010101ff;
+			break;
+		}
+        case '6': {
+        	big[0] = 0xFF8080FF;
+            big[1] = 0x818181FF;
+			break;
+		}
+        case '7': {
+        	big[0] = 0xFF010204;
+            big[1] = 0x08102040;
+			break;
+		}
+        case '8': {
+        	big[0] = 0xFF8181FF;
+            big[1] = 0x818181FF;
+			break;
+		}
+        case '9': {
+        	big[0] = 0xFF8181FF;
+            big[1] = 0x02040810;
+			break;
+		}
+        case 'A': {
+        	big[0] = 0x182442FF;
+            big[1] = 0x4242C3C3;
+			break;
+		}
+        case 'B': {
+        	big[0] = 0xFC8282FF;
+            big[1] = 0x828282FF;
+			break;
+		}
+        case 'C': {
+        	big[0] = 0xFF808080;
+            big[1] = 0x808080FF;
+			break;
+		}
+        case 'D': {
+        	big[0] = 0xFF888482;
+            big[1] = 0x828488FF;
+			break;
+		}
+        case 'E': {
+        	big[0] = 0xFF8080FF;
+            big[1] = 0x808080FF;
+			break;
+		}
+        case 'F': {
+        	big[0] = 0xFF8080F8;
+            big[1] = 0x80808080;
+			break;
+		}
         default:
             big[0] = 0;
             big[1] = 0;

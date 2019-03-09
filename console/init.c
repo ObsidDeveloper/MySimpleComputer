@@ -18,6 +18,13 @@ int initialization() {
 		printf("Sorry, your terminal is smaller than necessary.\n");
 		return -1;
 	}
+	initMemoryDisplay();
+	initAccumDisplay();
+	initCountDisplay();
+	initOpersDisplay();
+	initKeysDisplay();
+	
+	return 0;
 }
 
 int initMemoryDisplay() {
