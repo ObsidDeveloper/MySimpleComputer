@@ -57,7 +57,7 @@ int returnCellPos(int nummer, int *x, int *y) {
 	return 0;
 }
 
-int printNumber(int x, int y, enum Colors bg_c) {
+int printNumber(int x, int y, int value, enum Colors bg_c) {
 	mt_gotoXY(x, y);
 	mt_setbgcolor(bg_c);
 	printf("+%04X", value);
