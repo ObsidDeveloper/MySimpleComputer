@@ -68,5 +68,30 @@ int displayKeys(struct block_info *keys_block) {
 	mt_gotoXY(x++, y);
 	printf("r - run");
 
+	mt_gotoXY(keys_block->x, y - 4);
+	return 0;
+}
+
+int displayBigChars(struct block_info *bigchar_block) {
+	char bigchar_buffer[6];
+	int value;
+
+	sc_memoryGet(InstrCount, &value);
+	if (value = > 0) {
+		sprintf(bigchar_buffer, "+%04X", value);
+	}
+	else {
+		sprintf(bigchar_buffer, "-%04X", value);
+	}
+
+	int x = bigchar_block->x + 2;
+	int y = bigchar_block->y + 4;
+	int i;
+	int big[2];
+	for (i = 0; i < 5; i++) {
+		bc_initBigChar(big, bigchar_buffer[i]);
+		bc_printbigchar(big, x, y, WHITE, BLACK);
+		y+= 9;
+	}
 	return 0;
 }

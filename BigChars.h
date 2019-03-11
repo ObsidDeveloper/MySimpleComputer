@@ -30,7 +30,7 @@ int bc_getbigcharpos(int *big, int x, int y, int *value);
 int bc_bigcharwrite(int fd, int *big, int count);
 int bc_bigcharread(int fd, int *big, int need_count, int *count);
 
-
+int bc_initBigChar(int *bigC, char symbol);
 
 /*BigChars*/
 int bigchar[2];
