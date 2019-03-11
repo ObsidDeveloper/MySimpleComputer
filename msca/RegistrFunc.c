@@ -26,3 +26,13 @@ int sc_regGet(int flag, int * value) {
 	sc_regSet(WRONGFLAG, 1);
 	return WRONGFLAG;
 }
+
+int sc_accumGet(int *value) {
+	*value = accumulator;
+	return 0;
+}
+
+int sc_accumSet(int value) {
+	accumulator = value;
+	return 0;
+}
