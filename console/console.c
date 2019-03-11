@@ -50,3 +50,23 @@ int displayCount(struct block_info *count_block) {
 	printNumber(x, y, InstrCount, DEFAULT);
 	return 0;
 }
+
+int displayOpers(struct block_info *opers_block) {
+	/*empty*/
+	return 0;
+}
+
+int displayKeys(struct block_info *keys_block) {
+	int x = keys_block->x + 1;
+	int y = keys_block->y + 4;
+	mt_gotoXY(x++, y);
+	printf("l - load");
+
+	mt_gotoXY(x++, y);
+	printf("s - save");
+
+	mt_gotoXY(x++, y);
+	printf("r - run");
+
+	return 0;
+}
