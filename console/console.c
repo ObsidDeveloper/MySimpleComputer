@@ -8,14 +8,20 @@
 
 int drawAll() {
 	creatBlock(&display_mem, 2);
-	displayMemory(&display_mem);
-	
 	creatBlock(&display_accum, 2);
 	creatBlock(&display_instr_count, 2);
 	creatBlock(&display_opers, 2);
 	creatBlock(&display_keys, 2);
 	creatBlock(&display_bigchar, 2);
-	
+
+	displayMemory(&display_mem);
+	displayAccum(&display_accum);
+	displayCount(&display_instr_count);
+	displayOpers(&display_opers);
+	displayKeys(&display_keys);
+	displayBigChars(&display_bigchar);
+
+	return 0;
 }
 
 int displayMemory(struct block_info *mem_block) {
