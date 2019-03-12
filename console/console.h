@@ -51,12 +51,23 @@ struct message_box {
 };
 
 /*psevdodraw*/
+#define NOWHERE_POSREG 0
+#define CENTER_POSREG 2
+#define BEGIN_POSREG 10
+
 int creatBlock(struct block_info *block, int posreg);
+int creatMessageBox(struct message_box *box, const char *message);
+
 int printNumber(int x, int y, int value, enum Colors bg_c);
 
+/*psevdodraw/'color funcs'*/
 int initHighLight(enum Colors c);
 int highlightCell(int nummer, enum Colors light);
+int setHighLight(enum Colors c);
 
+int setDefaultColorsMSC();
+
+/*InstCount - is a variable to display the current memory location.*/
 int InstrCount;
 
 #endif
