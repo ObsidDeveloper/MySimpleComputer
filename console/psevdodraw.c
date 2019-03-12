@@ -74,3 +74,7 @@ int setHighLight(enum Colors c) {
 	highlight = c;
 	return 0;
 }
+
+int creatMessageBox() {
+	return 0;
+}

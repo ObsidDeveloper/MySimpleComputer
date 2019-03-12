@@ -41,6 +41,15 @@ int initOpersDisplay();
 int initKeysDisplay();
 int initBigCharDisplay();
 
+struct message_box {
+	struct block_info mes_block;
+	const char *message;
+	int input_enabled;
+	int inputline_lenght;
+	Colors inputline_bgcolor;
+	Colors_inputline_fgcolor;
+};
+
 /*psevdodraw*/
 int creatBlock(struct block_info *block, int posreg);
 int printNumber(int x, int y, int value, enum Colors bg_c);
