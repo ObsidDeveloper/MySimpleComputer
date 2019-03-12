@@ -46,6 +46,7 @@ int creatBlock(struct block_info *block, int posreg);
 int printNumber(int x, int y, int value, enum Colors bg_c);
 
 int initHighLight(enum Colors c);
+int highlightCell(int nummer, enum Colors light);
 
 int InstrCount;
 
