@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "../ReadKey.h"
+#include "../msca/MySimpleComputer.h"
 #include "console.h"
 
 int console(void) {
@@ -9,9 +10,16 @@ int console(void) {
 	while (key != EXIT) {
 		rk_readKey(&key);
 
-		switch (key) {
-		case LEFT: {
-
+		if (memMovement(key)) {
+			switch (key) {
+			case LOAD: {
+				sc_memoryLoad("data.bin");
+				break;
+			}
+			case SAVE: {
+				sc_memorySave("data.bin");
+				break;
+			}
 			}
 		}
 	}
