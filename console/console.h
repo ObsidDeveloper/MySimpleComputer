@@ -47,7 +47,7 @@ struct message_box {
 	int input_enabled;
 	int inputline_lenght;
 	Colors inputline_bgcolor;
-	Colors_inputline_fgcolor;
+	Colors inputline_fgcolor;
 };
 
 /*psevdodraw*/

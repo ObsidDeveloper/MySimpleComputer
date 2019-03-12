@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "../BigChars.h"
 #include "../msca/MySimpleComputer.h"
@@ -75,6 +76,32 @@ int setHighLight(enum Colors c) {
 	return 0;
 }
 
-int creatMessageBox() {
+int creatMessageBox(struct message_box *box, const char *message) {
+	creatBlock(box->mes_block, 0);
+
+	box->message = message;
+	int x = box->mes_block.x + 1;
+	int y = box->mes_block.y + (box->mes_block.deltaY - strlen(message))/2;
+	mt_gotoXY(x, y);
+	mt_setbgcolor(box->mes_block.bg_textcolor);
+	mt_setfgcolor(box->mes_block.fg_textcolor);
+	printf("%s", message); /*Hm, why is that? It can be 'printf(message)'. Think about it.*/
+	/*remember: message is constant char-string*/
+	if (box->input_enabled) {
+		x += 2;
+		mt_gotoXY(x, y);
+		mt_setbgcolor(box->inputline_bgcolor);
+		mt_setfgcolor(box->inputline_fgcolor);
+		int i;
+		for (i = 0; i < box->inputline_lenght; i++) {
+			printf(" ");
+		}
+		mt_gotoXY(x, y);
+	}
+	else {
+		x += 2;
+		mt_gotoXY(x, y);
+		printf("OK");
+	}
 	return 0;
 }
