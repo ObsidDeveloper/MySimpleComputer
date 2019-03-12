@@ -101,3 +101,11 @@ int displayBigChars(struct block_info *bigchar_block) {
 	}
 	return 0;
 }
+
+int getInstrCountFromComputer(int *count) {
+	/*this function is still empty, as there is no system
+	counter (timer) in the MSC (or in MySimpleComputer in general) model*/
+	return 0;
+}
+
+/*fucking Google-Translate*/
