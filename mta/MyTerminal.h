@@ -11,6 +11,9 @@
 enum Colors {
 	DEFAULT = 9,
 	BLACK = 0,
+	YELLOW = 3,
+	VIOLET = 5,
+	AQUAMARINE = 6,
 	WHITE = 7,
 	GREEN = 2,
 	RED = 1,
