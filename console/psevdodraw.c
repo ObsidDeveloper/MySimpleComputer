@@ -18,13 +18,15 @@ int creatBlock(struct block_info *block, int posreg) {
 	bc_box(block->x, block->y, block->deltaX, block->deltaY);
 	/*end of creating without str*/
 	
-	int strpos = block->deltaY/posreg; /*set pos*/
-	mt_gotoXY(block->x, strpos);
-	
-	/*print with params*/
-	mt_setfgcolor(block->bg_textcolor);
-	mt_setbgcolor(block->fg_textcolor);
-	printf(" %s ", block->str);
+	if (posreg) {/*if zero do not print header*/
+		int strpos = block->deltaY / posreg; /*set pos*/
+		mt_gotoXY(block->x, strpos);
+
+		/*print with params*/
+		mt_setfgcolor(block->bg_textcolor);
+		mt_setbgcolor(block->fg_textcolor);
+		printf(" %s ", block->str);
+	}
 	
 	mt_gotoXY(block->x, block->y); /*return pos to begin, default*/
 	setDefaultColorsMSC();
