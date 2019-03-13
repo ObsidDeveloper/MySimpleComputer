@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../BigChars.h"
+#include "../mbca/BigChars.h"
 #include "../msca/MySimpleComputer.h"
 #include "../mta/MyTerminal.h"
 #include "../ReadKey.h"
@@ -141,4 +141,5 @@ int drawField(int x, int y, int deltaX, int deltaY) {
 		}
 	}
 	return 0;
+	/*The performance is mentally verified 13.03.19 #1*/
 }

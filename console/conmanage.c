@@ -13,11 +13,11 @@ int console(void) {
 		if (memMovement(key)) {
 			switch (key) {
 			case LOAD: {
-				sc_memoryLoad("data.bin");
+				creatMessageBox(&console_box, "Print filename (OPEN)");
 				break;
 			}
 			case SAVE: {
-				sc_memorySave("data.bin");
+				creatMessageBox(&console_box, "Print filename (SAVE)");
 				break;
 			}
 			}
@@ -26,7 +26,6 @@ int console(void) {
 }
 
 int memMovement(enum Keys key) {
-	/*TODO::WRITE DEFINES OF MSC COLORS - ALL!!!!*/
 	switch (key) {
 	     case LEFT: {
 		     if (InstrCount > 0x0) {
