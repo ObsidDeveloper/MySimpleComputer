@@ -9,7 +9,7 @@ int console(void) {
 
 	while (key != EXIT) {
 		rk_readKey(&key);
-
+		
 		if (memMovement(key)) {
 			switch (key) {
 			case LOAD: {

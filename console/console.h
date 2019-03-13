@@ -50,6 +50,8 @@ struct message_box {
 	Colors inputline_fgcolor;
 };
 
+int message_display_status;
+
 /*psevdodraw*/
 #define NOWHERE_POSREG 0
 #define CENTER_POSREG 2

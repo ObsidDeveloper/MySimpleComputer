@@ -108,4 +108,20 @@ int getInstrCountFromComputer(int *count) {
 	return 0;
 }
 
+int messageBox(struct message_box *box, const char *message) {
+	creatMessageBox(box, message);
+	if (box->input_enabled) {
+		char inputline[64];
+		fflush(stdin);
+		fgets(inputline, 64, stdin);
+	} else {
+		getchar();
+	}
+	drawAll();
+	return 0;
+}
+
+int commandReader(char *command) {
+	return 0;
+}
 /*fucking Google-Translate*/
