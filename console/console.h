@@ -50,7 +50,9 @@ struct message_box {
 	Colors inputline_fgcolor;
 };
 
-int message_display_status;
+struct message_box console_box;
+
+int message_display_status; /*unnecessary variable?*/
 
 /*psevdodraw*/
 #define NOWHERE_POSREG 0

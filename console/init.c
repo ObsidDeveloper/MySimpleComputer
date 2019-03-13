@@ -98,3 +98,11 @@ int initBigCharDisplay() {
 	strcpy(display_bigchar.str, "Zoom");
 	return 0;
 }
+
+int initConsoleBox() {
+	console_box.mes_block.x = 3;
+	console_box.mes_block.y = 3;
+	console_box.mes_block.deltaX = 20;
+	console_box.mes_block.deltaY = 7;
+	console_box.mes_block.block_color = WHITE;
+}
