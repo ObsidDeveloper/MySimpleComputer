@@ -31,6 +31,7 @@ int creatBlock(struct block_info *block, int posreg) {
 	mt_gotoXY(block->x, block->y); /*return pos to begin, default*/
 	setDefaultColorsMSC();
 	return 0;
+	/*The performance is mentally verified 13.03.19 #1*/
 }
 
 /*paint over the place number*/
@@ -46,6 +47,7 @@ int highlightCell(int nummer, enum Colors light) {
 	printf("+%04X", value);
 	setDefaultColorsMSC();
 	return 0;
+	/*The performance is mentally verified 13.03.19 #1*/
 }
 
 int returnCellPos(int nummer, int *x, int *y) {
@@ -59,6 +61,7 @@ int returnCellPos(int nummer, int *x, int *y) {
 		return 0;
 	}
 	return -1;
+	/*The performance is mentally verified 13.03.19 #1*/
 }
 
 int printNumber(int x, int y, int value, enum Colors bg_c) {
@@ -70,20 +73,24 @@ int printNumber(int x, int y, int value, enum Colors bg_c) {
 		printf("+%04X", value);
 	}
 	mt_setbgcolor(bg_msc);
+	/*The performance is mentally verified 13.03.19 #1*/
 }
 
 int setDefaultColorsMSC() {
 	mt_setfgcolor(fg_msc);
 	mt_setbgcolor(bg_msc);
 	return 0;
+	/*The performance is mentally verified 13.03.19 #1*/
 }
 
 int setHighLight(enum Colors c) {
 	highlight = c;
 	return 0;
+	/*The performance is mentally verified 13.03.19 #1*/
 }
 
 int creatMessageBox(struct message_box *box, const char *message) {
+	/*TODO: this func is too big(realy?), minimize, break into smaller funcs*/
 	creatBlock(box->mes_block, 0);
 	
 	int drawer_i, drawer_j;
@@ -121,6 +128,17 @@ int creatMessageBox(struct message_box *box, const char *message) {
 		x += 2;
 		mt_gotoXY(x, y);
 		printf("OK");
+	}
+	return 0;
+}
+
+int drawField(int x, int y, int deltaX, int deltaY) {
+	int drawer_i, drawer_j;
+	for (drawer_i = x; drawer_i < deltaX; drawer_i++) {
+		mt_gotoXY(drawer_i, y);
+		for (drawer_j = y; drawer_j < deltaY; drawer_j++) {
+			printf(" ");
+		}
 	}
 	return 0;
 }
