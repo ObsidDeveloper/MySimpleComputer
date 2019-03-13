@@ -6,7 +6,6 @@
 #define NEED_COLS 85
 #define NEED_ROWS 25
 
-
 int term_rows;
 int term_cols;
 
@@ -33,6 +32,18 @@ struct block_info display_opers;
 struct block_info display_instr_count; /*nummer of cell in memory*/
 struct block_info display_keys; /*help-list of keys for user*/
 struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
+
+#define STD_MEM_SIZE_X 62
+#define STD_MEM_SIZE_Y 22
+
+#define STD_IND_SIZE_X 5
+#define STD_IND_SIZE_Y 16
+
+#define STD_BIGCH_SIZE_X 10
+#define STD_BIGCH_SIZE_Y 42
+
+#define STD_KEYS_SIZE_X 10
+#define STD_KEYS_SIZE_Y 36
 
 int initMemoryDisplay();
 int initAccumDisplay();
