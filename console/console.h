@@ -33,8 +33,8 @@ struct block_info display_instr_count; /*nummer of cell in memory*/
 struct block_info display_keys; /*help-list of keys for user*/
 struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
 
-#define STD_MEM_SIZE_X 62
-#define STD_MEM_SIZE_Y 22
+#define STD_MEM_SIZE_X 22
+#define STD_MEM_SIZE_Y 62
 
 #define STD_IND_SIZE_X 5
 #define STD_IND_SIZE_Y 16
@@ -61,7 +61,12 @@ struct message_box {
 	Colors inputline_fgcolor;
 };
 
+#define STD_MESBOX_SIZE_X 7
+#define STD_MESBOX_SIZE_Y 56
+
 struct message_box console_box;
+
+int initConsoleBox();
 
 int message_display_status; /*unnecessary variable?*/
 

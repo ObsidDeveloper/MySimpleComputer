@@ -63,7 +63,11 @@ int returnCellPos(int nummer, int *x, int *y) {
 int printNumber(int x, int y, int value, enum Colors bg_c) {
 	mt_gotoXY(x, y);
 	mt_setbgcolor(bg_c);
-	printf("+%04X", value);
+	if (value => 0) {
+		printf("+%04X", value);
+	} else {
+		printf("+%04X", value);
+	}
 	mt_setbgcolor(bg_msc);
 }
 
@@ -80,10 +84,22 @@ int setHighLight(enum Colors c) {
 
 int creatMessageBox(struct message_box *box, const char *message) {
 	creatBlock(box->mes_block, 0);
-
-	box->message = message;
+	
+	int drawer_i, drawer_j;
 	int x = box->mes_block.x + 1;
-	int y = box->mes_block.y + (box->mes_block.deltaY - strlen(message))/2;
+	int y = box->mes_block.y + 1;
+	int dl_x = x + box->mes_block.deltaX - 1;
+	int dl_y = y + box->mes_block.deltaY - 1;
+	
+	for (drawer_i = x; drawer_i < dl_x; drawer_i++) {
+		mt_gotoXY(drawer_i, y);
+		for (drawer_j = y; drawer_j < dl_y; drawer_j++) {
+			printf(" ");
+		}
+	}
+	
+	box->message = message;
+	y = box->mes_block.y + (box->mes_block.deltaY - strlen(message))/2;
 	mt_gotoXY(x, y);
 	mt_setbgcolor(box->mes_block.bg_textcolor);
 	mt_setfgcolor(box->mes_block.fg_textcolor);
