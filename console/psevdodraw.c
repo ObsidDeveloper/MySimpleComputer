@@ -49,15 +49,16 @@ int highlightCell(int nummer, enum Colors light) {
 }
 
 int returnCellPos(int nummer, int *x, int *y) {
-	if (N <= nummer || nummer < 0) return -1;
-	
-	/*(1,1) - posirion of memory[0]*/
-	*x = display_memory.x + 1;
-	*y = dixplay_memory.y + 1;
-	
-	*x += nummer/10; /*remember: 9/10 == 0*/
-	*y += (nummer%10)*(5 + 1);
-	return 0;
+	if (0 < nummer && nummer < N) {
+		/*(1,1) - posirion of memory[0]*/
+		*x = display_memory.x + 1;
+		*y = dixplay_memory.y + 1;
+		
+		*x += nummer/10; /*remember: 9/10 == 0*/
+		*y += (nummer%10)*(5 + 1);
+		return 0;
+	}
+	return -1;
 }
 
 int printNumber(int x, int y, int value, enum Colors bg_c) {
