@@ -11,7 +11,7 @@
 #include "BigChars.h"
 
 
-int bc_printA (char *str) {
+int bc_printA(char *str) {
 	printf(EN_ACS);
 	printf(str);
 	printf(DS_ACS);
@@ -116,7 +116,7 @@ int bc_bigcharread(int fd, int *big, int need_count, int *count) {
 	return -1;
 }
 
-int bc_initBigChar(int *bigC, char symbol) {
+int bc_initBigChar(int *bigC, char value) {
 	if (bigC == NULL) return -1;
 	
 	switch (value) {
@@ -126,93 +126,93 @@ int bc_initBigChar(int *bigC, char symbol) {
 			break;
 		}
         case '+': {
-        	big[0] = 0x181818FF;
-            big[1] = 0xFF181818;
+        	bigC[0] = 0x181818FF;
+            bigC[1] = 0xFF181818;
 			break;
 		}
         case '0': {
-        	big[0] = 0xFF838589;
-			big[1] = 0x915131FF;
+        	bigC[0] = 0xFF838589;
+			bigC[1] = 0x915131FF;
 			break;
 		}
         case '1': {
-        	big[0] = 0x01010101;
-        	big[1] = 0x01010101;
+        	bigC[0] = 0x01010101;
+        	bigC[1] = 0x01010101;
 			break;
 		}
         case '2': {
-        	big[0] = 0xff0101ff;
-            big[1] = 0x808080ff;
+        	bigC[0] = 0xff0101ff;
+            bigC[1] = 0x808080ff;
 			break;
 		}
         case '3': {
-        	big[0] = 0xFF0101FF;
-            big[1] = 0xFF0101FF;
+        	bigC[0] = 0xFF0101FF;
+            bigC[1] = 0xFF0101FF;
 			break;
 		}
         case '4': {
-        	big[0] = 0x818181FF;
-        	big[1] = 0x01010101;
+        	bigC[0] = 0x818181FF;
+        	bigC[1] = 0x01010101;
 			break;
 		}
         case '5': {
-        	big[0] = 0xff8080ff;
-            big[1] = 0x010101ff;
+        	bigC[0] = 0xff8080ff;
+            bigC[1] = 0x010101ff;
 			break;
 		}
         case '6': {
-        	big[0] = 0xFF8080FF;
-            big[1] = 0x818181FF;
+        	bigC[0] = 0xFF8080FF;
+            bigC[1] = 0x818181FF;
 			break;
 		}
         case '7': {
-        	big[0] = 0xFF010204;
-            big[1] = 0x08102040;
+        	bigC[0] = 0xFF010204;
+            bigC[1] = 0x08102040;
 			break;
 		}
         case '8': {
-        	big[0] = 0xFF8181FF;
-            big[1] = 0x818181FF;
+        	bigC[0] = 0xFF8181FF;
+            bigC[1] = 0x818181FF;
 			break;
 		}
         case '9': {
-        	big[0] = 0xFF8181FF;
-            big[1] = 0x02040810;
+        	bigC[0] = 0xFF8181FF;
+            bigC[1] = 0x02040810;
 			break;
 		}
         case 'A': {
-        	big[0] = 0x182442FF;
-            big[1] = 0x4242C3C3;
+        	bigC[0] = 0x182442FF;
+            bigC[1] = 0x4242C3C3;
 			break;
 		}
         case 'B': {
-        	big[0] = 0xFC8282FF;
-            big[1] = 0x828282FF;
+        	bigC[0] = 0xFC8282FF;
+            bigC[1] = 0x828282FF;
 			break;
 		}
         case 'C': {
-        	big[0] = 0xFF808080;
-            big[1] = 0x808080FF;
+        	bigC[0] = 0xFF808080;
+            bigC[1] = 0x808080FF;
 			break;
 		}
         case 'D': {
-        	big[0] = 0xFF888482;
-            big[1] = 0x828488FF;
+        	bigC[0] = 0xFF888482;
+            bigC[1] = 0x828488FF;
 			break;
 		}
         case 'E': {
-        	big[0] = 0xFF8080FF;
-            big[1] = 0x808080FF;
+        	bigC[0] = 0xFF8080FF;
+            bigC[1] = 0x808080FF;
 			break;
 		}
         case 'F': {
-        	big[0] = 0xFF8080F8;
-            big[1] = 0x80808080;
+        	bigC[0] = 0xFF8080F8;
+            bigC[1] = 0x80808080;
 			break;
 		}
         default:
-            big[0] = 0;
-            big[1] = 0;
+            bigC[0] = 0;
+            bigC[1] = 0;
             break;
     }
 }

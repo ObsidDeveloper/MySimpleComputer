@@ -2,6 +2,7 @@
 #include "msca/MySimpleComputer.h"
 #include "mta/MyTerminal.h"
 
+#include <io.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -18,11 +19,15 @@ int main() {
 	s[0] = 0xff8181ff;
 	s[1] = 0xff8181ff;
 	bc_printbigchar(s, 10, 10, WHITE, RED);
+/*	int b;
+	if (b = creat("met.txt", S_IWRITE)) printf("NO");
+	close(b);*/
 	int buf = open("met.txt", O_WRONLY);
 	BC_SIZE = 2;
 	int result = bc_bigcharwrite(buf, s, 1);
 	printf("result of writing: %d\n", result);
 	close(buf);
+	
 	buf = open("met.txt", O_RDONLY);
 	int c;
 	result = bc_bigcharread(buf, s, 1, &c);
@@ -36,7 +41,6 @@ int main() {
 	bc_getbigcharpos(s, 2, 2, &c);
 	printf("\n%d", c);
 	/*initbigchars();*/
-	bc_printbigchar(getbigchar(1), 15, 15, WHITE, BLUE);
 	mt_gotoXY(6, 8);
 	getchar();
 	return 0;

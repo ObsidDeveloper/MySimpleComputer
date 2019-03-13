@@ -30,10 +30,42 @@ BigChars.o: BigChars.c
 bg.o: bg.c
 	gcc -c bg.c
 
+project: 
+	make MSC &&
+	make MT &&
+	make MBC &&
+	make RK &&
+	make console &&
+	make program
+	
+program: main.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
+	gcc -o binar main.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
+
+main.o: 
+	gcc main.c -c main.o
+
+console: 
+	cd console/ && make console.a
+
+MSC: 
+	cd msca/ && make msc.a
+	
+MT: 
+	cd mta/ && make mt.a
+	
+MBC: 
+	cd mbca/ && make mbc.a
+	
+RK: 
+	cd rk/ && make rk.a
+	
+SAT: 
+	cd sat/ && make sat.a
+
+
 clean: 
 	rm *.o
 	rm *.exe
 	rm mta/mt.a
 	rm mbca/mbc.a
 	rm msca/msc.a
-	
