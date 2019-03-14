@@ -4,7 +4,7 @@
 #include "../mta/MyTerminal.h"
 
 #define NEED_COLS 85
-#define NEED_ROWS 24
+#define NEED_ROWS 28
 
 int term_rows;
 int term_cols;
@@ -14,10 +14,13 @@ enum Colors fg_msc;
 
 enum Colors highlight;
 
+/*recovery colors*/
 enum Colors bg_res;
 enum Colors fg_res;
 
-char str_from_input[128];
+int initColors();
+
+char str_from_input[128]; /*buffer for input in console*/
 
 /*struct for saving data about a display*/
 struct block_info {
@@ -26,7 +29,7 @@ struct block_info {
 	int deltaX;
 	int deltaY;
 	char str[16]; 
-	Colors block_color;
+	Colors block_color; /*in next commits remove?*/
 	Colors bg_textcolor;
 	Colors fg_textcolor; 
 };
@@ -72,6 +75,7 @@ struct message_box {
 #define STD_MESBOX_SIZE_Y 56
 
 struct message_box console_box;
+struct message_box alert_box;
 
 int initConsoleBox();
 
@@ -97,4 +101,15 @@ int setDefaultColorsMSC();
 /*InstCount - is a variable to display the current memory location.*/
 int InstrCount;
 
+/*conmanage*/
+
+int console(void);
+
+int memMovement(enum Keys key);
+
+	/*console interface of model MSC*/
+int consoleComLoad(char *filename);
+int consoleComSave(char *filename);
+	/*support of conmanage*/
+int formatStrBackNull(char *str, int max_size); /*set real 0 in the end instread of '\n' */
 #endif

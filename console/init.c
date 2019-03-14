@@ -110,6 +110,16 @@ int initConsoleBox() {
 	console_box.mes_block.block_color = WHITE;
 }
 
+int initAlertBox() {
+	alert_box.inputline_lenght = 0;
+	alert_box.input_enabled = 0;
+	alert_box.mes_block.x = 7;
+	alert_box.mes_block.y = 10;
+	alert_box.mes_block.deltaX = 5;
+	alert_box.mes_block.deltaY = 40;
+	alert_box.mes_block.block_color = WHITE;
+}
+
 int initColors() {
 	bg_msc = DEFAULT;
 	fg_MSC = BLUE;
