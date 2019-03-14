@@ -4,6 +4,7 @@
 int sc_regInit(void) {
 	registr = registr & 0;
 	accumulator = accumulator & 0;
+	instruction_counter = instruction_counter & 0;
 	return 0;
 }
 
@@ -34,5 +35,15 @@ int sc_accumGet(int *value) {
 
 int sc_accumSet(int value) {
 	accumulator = value;
+	return 0;
+}
+
+int sc_countGet(int *value) {
+	*value = instruction_counter;
+	return 0;
+}
+
+int sc_countSet(int value) {
+	instruction_counter = value;
 	return 0;
 }
