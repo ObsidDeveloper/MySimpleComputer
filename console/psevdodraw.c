@@ -83,6 +83,24 @@ int setDefaultColorsMSC() {
 	/*The performance is mentally verified 13.03.19 #1*/
 }
 
+int saveColors(enum Colors bg, enum Colors fg, int instruction) {
+	bg_res = bg;
+	fg_res = fg;
+	if (instruction) {
+		mt_setbgcolor(bg);
+		mt_setfgcolor(fg);
+	}
+	return 0;
+}
+
+enum Colors returnBGRES() {
+	return bg_res;
+}
+
+enum Colors returnFGRES() {
+	return fg_res;
+}
+
 int setHighLight(enum Colors c) {
 	highlight = c;
 	return 0;
@@ -93,24 +111,21 @@ int creatMessageBox(struct message_box *box, const char *message) {
 	/*TODO: this func is too big(realy?), minimize, break into smaller funcs*/
 	creatBlock(box->mes_block, 0);
 	
-	int drawer_i, drawer_j;
 	int x = box->mes_block.x + 1;
 	int y = box->mes_block.y + 1;
 	int dl_x = x + box->mes_block.deltaX - 1;
 	int dl_y = y + box->mes_block.deltaY - 1;
 	
-	for (drawer_i = x; drawer_i < dl_x; drawer_i++) {
-		mt_gotoXY(drawer_i, y);
-		for (drawer_j = y; drawer_j < dl_y; drawer_j++) {
-			printf(" ");
-		}
-	}
+	mt_setbgcolor(box->mes_block.block_color);
+	drawField(x, y, dl_x, dl_y);
 	
 	box->message = message;
 	y = box->mes_block.y + (box->mes_block.deltaY - strlen(message))/2;
+	
 	mt_gotoXY(x, y);
 	mt_setbgcolor(box->mes_block.bg_textcolor);
 	mt_setfgcolor(box->mes_block.fg_textcolor);
+	
 	printf("%s", message); /*Hm, why is that? It can be 'printf(message)'. Think about it.*/
 	/*remember: message is constant char-string*/
 	if (box->input_enabled) {
@@ -142,4 +157,16 @@ int drawField(int x, int y, int deltaX, int deltaY) {
 	}
 	return 0;
 	/*The performance is mentally verified 13.03.19 #1*/
+}
+
+int drawInputLine(int x, int y, struct message_box *box) {
+	mt_gotoXY(x, y);
+	mt_setbgcolor(box->inputline_bgcolor);
+	mt_setfgcolor(box->inputline_fgcolor);
+	int i;
+	for (i = 0; i < box->inputline_lenght; i++) {
+		printf(" ");
+	}
+	mt_gotoXY(x, y);
+	setDefaultColorsMSC();
 }
