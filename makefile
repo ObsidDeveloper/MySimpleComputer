@@ -65,7 +65,6 @@ SAT:
 
 clean: 
 	rm *.o
-	rm *.exe
 	rm mta/mt.a
 	rm mbca/mbc.a
 	rm msca/msc.a

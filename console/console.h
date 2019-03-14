@@ -4,7 +4,7 @@
 #include "../mta/MyTerminal.h"
 
 #define NEED_COLS 85
-#define NEED_ROWS 25
+#define NEED_ROWS 24
 
 int term_rows;
 int term_cols;

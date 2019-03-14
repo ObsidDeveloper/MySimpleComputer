@@ -16,4 +16,6 @@ enum Keys {
 	DOWN,
 	EDIT
 };
+
+#define CHECK_REG_ECH_SIG (regime < 0 || regime > 1 || echo < 0 || echo > 1 || sigint < 0 || sigint > 1)
 #endif
