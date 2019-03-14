@@ -93,12 +93,11 @@ int saveColors(enum Colors bg, enum Colors fg, int instruction) {
 	return 0;
 }
 
-enum Colors returnBGRES() {
-	return bg_res;
-}
-
-enum Colors returnFGRES() {
-	return fg_res;
+int returnSavedColors(enum Colors *bg, enum Colors *fg) {
+	if (bg == NULL || fg == NULL) return -1;
+	*bg = bg_res;
+	*fg = fg_res;
+	return 0;
 }
 
 int setHighLight(enum Colors c) {

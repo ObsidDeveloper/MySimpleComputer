@@ -55,6 +55,8 @@ int initOpersDisplay();
 int initKeysDisplay();
 int initBigCharDisplay();
 
+int displayMemory(struct block_info *mem_block);
+
 struct message_box {
 	struct block_info mes_block;
 	const char *message;
