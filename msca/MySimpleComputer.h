@@ -25,6 +25,8 @@ int sc_memoryPrint();
 #define ERRORCOM 4
 #define WRONGOP 5
 
+#define IGNORTACT 6
+
 int registr;
 
 
