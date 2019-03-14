@@ -28,12 +28,13 @@ int console(void) {
 				case F5: {
 					messageBox(&console_box, "Print a value to accum");
 					scanf("%X", &value); /*WARNING!*/
-					/*TODO: write a func in MSC lib, set a accum*/
+					sc_accumSet(value);
 					break;
 				}
 				case F6: {
 					messageBox(&console_box, "Print a value to InstrC");
 					scanf("%X", &value); /*WARNING!*/
+					sc_countSet(value);
 					break;
 				}
 			}
@@ -114,4 +115,8 @@ int consoleLoadMem() {
 	fgets(str_from_input, 128, stdin);
 	formatStrBackNull(str_from_input, 128);
 	consoleComLoad(str_from_input);
+}
+
+int consoleUpdateInstr() {
+	return sc_countGet(&InstrCount);
 }

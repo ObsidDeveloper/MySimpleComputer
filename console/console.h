@@ -131,8 +131,12 @@ int console(void);
 int memMovement(enum Keys key);
 
 	/*console interface of model MSC*/
+int consoleSaveMem();
+int consoleLoadMem();
 int consoleComLoad(char *filename);
 int consoleComSave(char *filename);
+
+int consoleUpdateInstr();
 	/*support of conmanage*/
 int formatStrBackNull(char *str, int max_size); /*set real 0 in the end instread of '\n' */
 #endif
