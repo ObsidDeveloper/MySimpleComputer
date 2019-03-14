@@ -22,6 +22,9 @@ int initialization() {
 	initOpersDisplay();
 	initKeysDisplay();
 	initBigCharDisplay();
+	initConsoleBox();
+	
+	initColors();
 	
 	InstrCount = 0;
 	return 0;
