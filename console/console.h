@@ -17,6 +17,8 @@ enum Colors highlight;
 enum Colors bg_res;
 enum Colors fg_res;
 
+char str_from_input[128];
+
 /*struct for saving data about a display*/
 struct block_info {
 	int x;
