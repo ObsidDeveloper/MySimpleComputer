@@ -114,12 +114,8 @@ int displayBigChars(struct block_info *bigchar_block) {
 
 int messageBox(struct message_box *box, const char *message) {
 	creatMessageBox(box, message);
-	if (box->input_enabled) {
-		char inputline[64];
-		fflush(stdin);
-		fgets(inputline, 64, stdin);
-	} else {
-		getchar();
+	if (!box->input_enabled) {
+		getchar(); /*press anykey to continue*/
 	}
 	return 0;
 }
