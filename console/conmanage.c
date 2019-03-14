@@ -5,6 +5,7 @@
 #include "console.h"
 
 int console(void) {
+	int value;
 	enum Keys key = NONE;
 
 	while (key != EXIT) {
@@ -26,7 +27,13 @@ int console(void) {
 				}
 				case F5: {
 					messageBox(&console_box, "Print a value to accum");
-					scanf("")
+					scanf("%X", &value); /*WARNING!*/
+					/*TODO: write a func in MSC lib, set a accum*/
+					break;
+				}
+				case F6: {
+					messageBox(&console_box, "Print a value to InstrC");
+					scanf("%X", &value); /*WARNING!*/
 					break;
 				}
 			}
