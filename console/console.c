@@ -59,7 +59,16 @@ int displayCount(struct block_info *count_block) {
 }
 
 int displayOpers(struct block_info *opers_block) {
-	/*empty*/
+	int value;
+	sc_memoryGet(InstrCount, &value);
+	
+	mt_gotoXY(opers_block->x + 1, opers_block->y + 4);
+	int buf;
+	buf = value >> 7;
+	printf("%02X :", buf);
+	buf = value & bits7;
+	printf("%02X", buf);
+	mt_gotoXY(opers_block->x, opers_block->y);
 	return 0;
 }
 
