@@ -41,6 +41,8 @@ struct block_info display_instr_count; /*nummer of cell in memory*/
 struct block_info display_keys; /*help-list of keys for user*/
 struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
 
+int initialization();
+
 #define STD_MEM_SIZE_X 22
 #define STD_MEM_SIZE_Y 62
 
@@ -78,6 +80,7 @@ struct message_box console_box;
 struct message_box alert_box;
 
 int initConsoleBox();
+int initAlertBox();
 
 int message_display_status; /*unnecessary variable?*/
 
@@ -89,14 +92,34 @@ int message_display_status; /*unnecessary variable?*/
 int creatBlock(struct block_info *block, int posreg);
 int creatMessageBox(struct message_box *box, const char *message);
 
+	/*psevdodraw - separate drawing functions*/
+int drawField(int x, int y, int deltaX, int deltaY);
+int drawInputLine(int x, int y, struct message_box *box);
+
 int printNumber(int x, int y, int value, enum Colors bg_c);
 
-/*psevdodraw/'color funcs'*/
+	/*psevdodraw/'color funcs'*/
 int initHighLight(enum Colors c);
 int highlightCell(int nummer, enum Colors light);
 int setHighLight(enum Colors c);
+int saveColors(enum Colors bg, enum Colors fg, int instruction);
+int returnSavedColors(enum Colors *bg, enum Colors *fg);
 
 int setDefaultColorsMSC();
+
+/*console display - continue of psevdodraw, use thr psevdodraw*/
+int drawAll();
+
+	/*displays*/
+int displayMemory(struct block_info *mem_block);
+int displayAccum(struct block_info *acc_block);
+int displayCount(struct block_info *count_block);
+int displayOpers(struct block_info *opers_block);
+int displayKeys(struct block_info *keys_block);
+int displayBigChars(struct block_info *bigchar_block);
+
+	/*messageBox*/
+int messageBox(struct message_box *box, const char *message);
 
 /*InstCount - is a variable to display the current memory location.*/
 int InstrCount;

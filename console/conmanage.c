@@ -14,18 +14,19 @@ int console(void) {
 			switch (key) {
 				case LOAD: {
 					messageBox(&console_box, "Print filename (OPEN)");
-					fgets(str_from_input, 128, stdin);
-					formatStrBackNull(str_from_input, 128);
-					consoleComLoad(str_from_input);
+					consoleLoadMem();
 					drawAll();
 					break;
 				}
 				case SAVE: {
 					messageBox(&console_box, "Print filename (SAVE)");
-					fgets(str_from_input, 128, stdin);
-					formatStrBackNull(str_from_input, 128);
-					consoleComSave(str_from_input);
+					consoleSaveMem();
 					drawAll();
+					break;
+				}
+				case F5: {
+					messageBox(&console_box, "Print a value to accum");
+					scanf("")
 					break;
 				}
 			}
@@ -94,4 +95,16 @@ int consoleComSave(char *filename) {
 		messageBox(&alert_box, "Can not write the file");
 	}
 	return 0;
+}
+
+int consoleSaveMem() {
+	fgets(str_from_input, 128, stdin);
+	formatStrBackNull(str_from_input, 128);
+	consoleComSave(str_from_input);
+}
+
+int consoleLoadMem() {
+	fgets(str_from_input, 128, stdin);
+	formatStrBackNull(str_from_input, 128);
+	consoleComLoad(str_from_input);
 }
