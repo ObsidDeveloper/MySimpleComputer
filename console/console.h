@@ -4,7 +4,7 @@
 #include "../mta/MyTerminal.h"
 
 #define NEED_COLS 85
-#define NEED_ROWS 28
+#define NEED_ROWS 34
 
 int term_rows;
 int term_cols;
@@ -41,13 +41,14 @@ struct block_info display_instr_count; /*nummer of cell in memory*/
 struct block_info display_keys; /*help-list of keys for user*/
 struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
 
+/*init*/
 int initialization();
 
 #define STD_MEM_SIZE_X 22
 #define STD_MEM_SIZE_Y 62
 
-#define STD_IND_SIZE_X 5
-#define STD_IND_SIZE_Y 16
+#define STD_IND_SIZE_X 3
+#define STD_IND_SIZE_Y 18
 
 #define STD_BIGCH_SIZE_X 10
 #define STD_BIGCH_SIZE_Y 42
@@ -55,6 +56,7 @@ int initialization();
 #define STD_KEYS_SIZE_X 10
 #define STD_KEYS_SIZE_Y 36
 
+	/*init blocks*/
 int initMemoryDisplay();
 int initAccumDisplay();
 int initCountDisplay();
@@ -62,7 +64,6 @@ int initOpersDisplay();
 int initKeysDisplay();
 int initBigCharDisplay();
 
-int displayMemory(struct block_info *mem_block);
 
 struct message_box {
 	struct block_info mes_block;
@@ -124,6 +125,7 @@ int messageBox(struct message_box *box, const char *message);
 /*InstCount - is a variable to display the current memory location.*/
 int InstrCount;
 
+int consoleUpdateInstr(); /*updating from register instruction_counter*/
 /*conmanage*/
 
 int console(void);
@@ -136,7 +138,6 @@ int consoleLoadMem();
 int consoleComLoad(char *filename);
 int consoleComSave(char *filename);
 
-int consoleUpdateInstr();
 	/*support of conmanage*/
 int formatStrBackNull(char *str, int max_size); /*set real 0 in the end instread of '\n' */
 #endif

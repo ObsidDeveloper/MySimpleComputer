@@ -13,7 +13,10 @@ int initialization() {
 	
 	
 	if (rows < NEED_ROWS || cols < NEED_COLS) {
-		printf("Sorry, your terminal is smaller than necessary.\n");
+		printf(
+			"Sorry, your terminal is smaller than necessary.\n Set %dx%d", 
+			NEED_ROWS, NEED_COLS
+			);
 		return -1;
 	}
 	initMemoryDisplay();

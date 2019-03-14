@@ -119,8 +119,4 @@ int messageBox(struct message_box *box, const char *message) {
 	}
 	return 0;
 }
-
-int commandReader(char *command) {
-	return 0;
-}
 /*fucking Google-Translate*/
