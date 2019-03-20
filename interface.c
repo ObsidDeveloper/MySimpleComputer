@@ -65,8 +65,8 @@ void displayMemory() {
 		mt_setbgcolor(DEFAULT);
 		if (mem_ptr == i) mt_setbgcolor(RED);
 		sc_memoryGet(i, &value);
-		if (value < 0) {
-			value *= -1;
+		if ((value >> 14)) {
+			value = value & 0x3fff;
 			printf("-%04X ", value);
 		}
 		else {
@@ -94,9 +94,10 @@ void displayAccumulator() {
 	printf(" accumulator ");
 	mt_setbgcolor(DEFAULT);
 	mt_gotoXY(2, 71);
-	if (accumulator < 0)
+	value = (accumulator & 0x3fff);
+	if ((accumulator >> 14))
 	{
-		printf("-%04X", accumulator);
+		printf("-%04X", value);
 	}
 	else
 	{
@@ -232,11 +233,12 @@ void displayBigCharArea() {
     char ss[8];
 
 	sc_memoryGet(mem_ptr, &value);
-	if (value >= 0) {
-		sprintf(ss, "+%04X", value);
+	if ((value >> 14)) {
+		value = value & 0x3fff;
+		sprintf(ss, "-%04X", value);
 	}
 	else {
-		sprintf(ss, "-%04X", value);
+		sprintf(ss, "+%04X", value);
 	}
 	
 	for (int i = 0; i < 5; i++){
@@ -305,6 +307,12 @@ void setAcc() {
     mt_setbgcolor(BLACK);
     mt_setfgcolor(DEFAULT);
 	fscanf(stdin, "%x", &value);
+	if (value > 0) value = value & 0x3fff;
+		else {
+			value--;
+			value = ~value;
+			value = value | (0x1 << 14);
+		}
 	accumulator = value;
     sc_memorySet(mem_ptr, value);
     mt_setbgcolor(DEFAULT);

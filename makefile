@@ -37,8 +37,8 @@ project:
 	make RK
 	make program
 	
-program: main.o interface.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
-	gcc -o binar main.o interface.o -L. msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
+program: main.o interface.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a
+	gcc -o binar main.o interface.o -L. msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a
 
 interface.o: interface.c
 	gcc interface.c -c

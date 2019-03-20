@@ -26,12 +26,12 @@ void defaultTermSettings(struct termios *termState)
 int rk_readKey(enum Keys *key) {
 	int term = open(TERM, O_RDWR);
 	char buf[8];
-
+	tcgetattr(0, &origin);
 	struct termios termState = __term_state;
 	rk_myTermRegime(&termState, 0, 0, 1, 0, 1);
 	int num = read(term, &buf, 4);
 	buf[7] = 0;
-	tcgetattr(0, &origin);
+	
 	if (num < 0) {
 		FILE *f = fopen("ghs.txt", "wt");
 		putc('N', f);
