@@ -1,7 +1,7 @@
 #ifndef BIGCHARS_H
 #define BIGCHARS_H
 
-#include "mta/MyTerminal.h"
+#include "../mta/MyTerminal.h"
 
 #define EN_ACS "\E(0"
 #define DS_ACS "\E(B"

@@ -1,7 +1,8 @@
 All: console.a
 
-console.a: init.o console.o psevdodraw.o conmanage.o
-	ar cr console.a init.o console.o psevdodraw.o conmanage.o
+OBJ = ../msca/MemoryFunc.o ../msca/RegistrFunc.o ../msca/CommandFunc.o ../mta/MyTerminal.o ../mbca/BigChars.o ../rk/ReadKey.o
+console.a: init.o console.o psevdodraw.o conmanage.o $(OBJ)
+	ar cr console.a init.o console.o psevdodraw.o conmanage.o $(OBJ)
 
 init.o: init.c
 	gcc -c init.c

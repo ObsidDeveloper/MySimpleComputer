@@ -6,8 +6,8 @@
 #include <unistd.h>
 #include <fcntl.h> 
 
-#include "msca/MySimpleComputer.h"
-#include "mta/MyTerminal.h"
+#include "../msca/MySimpleComputer.h"
+#include "../mta/MyTerminal.h"
 #include "BigChars.h"
 
 
@@ -50,7 +50,6 @@ int bc_box(int leftX, int leftY, int deltaX, int deltaY) {
 
 int bc_printbigchar (int symbol[2], int x, int y, enum Colors bgcolor, enum Colors fgcolor) {
 	/*variables must be here*/
-	mt_clrscr();
 	mt_gotoXY(x, y);
 	mt_setbgcolor(bgcolor);
 	mt_setfgcolor(fgcolor);

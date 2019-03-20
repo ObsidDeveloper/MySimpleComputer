@@ -4,15 +4,12 @@
 #include "../mbca/BigChars.h"
 #include "../msca/MySimpleComputer.h"
 #include "../mta/MyTerminal.h"
-#include "../ReadKey.h"
+#include "../rk/ReadKey.h"
 #include "console.h"
 
 int creatBlock(struct block_info *block, int posreg) {
-	if (NEED_ROWS < block->x || block->x < 0) return -1;
-	if (NEED_COLS < block->y || block->y < 0) return -1;
-	if (NEED_ROWS < (block->x + block->deltaX) || (block->x + block->deltaX) < 0) return -1;
-	if (NEED_COLS < (block->y + block->deltaY) || (block->y + block->deltaY) < 0) return -1;
-	
+	FILE *g = fopen("f.txt", "wt");
+	fprintf(g, "vrode");
 	/*creating box*/
 	mt_setfgcolor(block->block_color);
 	bc_box(block->x, block->y, block->deltaX, block->deltaY);
@@ -53,8 +50,8 @@ int highlightCell(int nummer, enum Colors light) {
 int returnCellPos(int nummer, int *x, int *y) {
 	if (0 < nummer && nummer < N) {
 		/*(1,1) - posirion of memory[0]*/
-		*x = display_memory.x + 1;
-		*y = dixplay_memory.y + 1;
+		*x = display_mem.x + 1;
+		*y = display_mem.y + 1;
 		
 		*x += nummer/10; /*remember: 9/10 == 0*/
 		*y += (nummer%10)*(5 + 1);
@@ -67,7 +64,7 @@ int returnCellPos(int nummer, int *x, int *y) {
 int printNumber(int x, int y, int value, enum Colors bg_c) {
 	mt_gotoXY(x, y);
 	mt_setbgcolor(bg_c);
-	if (value => 0) {
+	if (value >= 0) {
 		printf("+%04X", value);
 	} else {
 		printf("+%04X", value);
@@ -108,7 +105,7 @@ int setHighLight(enum Colors c) {
 
 int creatMessageBox(struct message_box *box, const char *message) {
 	/*TODO: this func is too big(realy?), minimize, break into smaller funcs*/
-	creatBlock(box->mes_block, 0);
+	creatBlock(&(box->mes_block), 0);
 	
 	int x = box->mes_block.x + 1;
 	int y = box->mes_block.y + 1;

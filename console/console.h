@@ -2,6 +2,7 @@
 #define CONSOLE_H
 
 #include "../mta/MyTerminal.h"
+#include "../rk/ReadKey.h"
 
 #define NEED_COLS 85
 #define NEED_ROWS 34
@@ -9,14 +10,14 @@
 int term_rows;
 int term_cols;
 
-enum Colors bg_msc;
-enum Colors fg_msc;
+int bg_msc;
+int fg_msc;
 
-enum Colors highlight;
+int highlight;
 
 /*recovery colors*/
-enum Colors bg_res;
-enum Colors fg_res;
+int bg_res;
+int fg_res;
 
 int initColors();
 
@@ -29,9 +30,9 @@ struct block_info {
 	int deltaX;
 	int deltaY;
 	char str[16]; 
-	Colors block_color; /*in next commits remove?*/
-	Colors bg_textcolor;
-	Colors fg_textcolor; 
+	int block_color; /*in next commits remove?*/
+	int bg_textcolor;
+	int fg_textcolor; 
 };
 
 struct block_info display_mem; /*memory field*/
@@ -70,8 +71,8 @@ struct message_box {
 	const char *message;
 	int input_enabled;
 	int inputline_lenght;
-	Colors inputline_bgcolor;
-	Colors inputline_fgcolor;
+	int inputline_bgcolor;
+	int inputline_fgcolor;
 };
 
 #define STD_MESBOX_SIZE_X 7
@@ -93,6 +94,7 @@ int message_display_status; /*unnecessary variable?*/
 int creatBlock(struct block_info *block, int posreg);
 int creatMessageBox(struct message_box *box, const char *message);
 
+int returnCellPos(int nummer, int *x, int *y);
 	/*psevdodraw - separate drawing functions*/
 int drawField(int x, int y, int deltaX, int deltaY);
 int drawInputLine(int x, int y, struct message_box *box);
@@ -132,6 +134,7 @@ int console(void);
 
 int memMovement(enum Keys key);
 
+int reset();
 	/*console interface of model MSC*/
 int consoleSaveMem();
 int consoleLoadMem();

@@ -3,10 +3,12 @@
 #include "../mbca/BigChars.h"
 #include "../msca/MySimpleComputer.h"
 #include "../mta/MyTerminal.h"
-#include "../ReadKey.h"
+#include "../rk/ReadKey.h"
 #include "console.h"
 
 int drawAll() {
+	printf("draw");
+	mt_clrscr();
 	creatBlock(&display_mem, 2);
 	creatBlock(&display_accum, 2);
 	creatBlock(&display_instr_count, 2);
@@ -36,7 +38,7 @@ int displayMemory(struct block_info *mem_block) {
 		printNumber(x, y, value, DEFAULT);
 		i++;
 		y += 6;
-		if (i/10) x++;
+		if (i%10 == 0) x++;
 	}
 	return 0;
 }
@@ -93,7 +95,7 @@ int displayBigChars(struct block_info *bigchar_block) {
 	int value;
 
 	sc_memoryGet(InstrCount, &value);
-	if (value = > 0) {
+	if (value >= 0) {
 		sprintf(bigchar_buffer, "+%04X", value);
 	}
 	else {

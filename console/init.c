@@ -4,7 +4,7 @@
 #include "../mbca/BigChars.h"
 #include "../msca/MySimpleComputer.h"
 #include "../mta/MyTerminal.h"
-#include "../ReadKey.h"
+#include "../rk/ReadKey.h"
 #include "console.h"
 
 int initialization() {
@@ -13,12 +13,10 @@ int initialization() {
 	
 	
 	if (rows < NEED_ROWS || cols < NEED_COLS) {
-		printf(
-			"Sorry, your terminal is smaller than necessary.\n Set %dx%d", 
-			NEED_ROWS, NEED_COLS
-			);
+		printf("Sorry, your terminal is smaller than necessary.\n Set %dx%d", NEED_ROWS, NEED_COLS);
 		return -1;
 	}
+	printf("work...");
 	initMemoryDisplay();
 	initAccumDisplay();
 	initCountDisplay();
@@ -28,7 +26,7 @@ int initialization() {
 	initConsoleBox();
 	
 	initColors();
-	
+	printf("end of init");
 	InstrCount = 0;
 	return 0;
 }
@@ -125,7 +123,7 @@ int initAlertBox() {
 
 int initColors() {
 	bg_msc = DEFAULT;
-	fg_MSC = BLUE;
+	fg_msc = BLUE;
 	highlight = RED;
 	return 0;
 }

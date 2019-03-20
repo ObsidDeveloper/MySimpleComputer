@@ -1,10 +1,15 @@
 #include <stdio.h>
 
-#include "../ReadKey.h"
+#include "../rk/ReadKey.h"
 #include "../msca/MySimpleComputer.h"
 #include "console.h"
 
 int console(void) {
+	sc_memoryInit();
+	sc_regInit();
+	termInit();
+	initialization();
+	drawAll();
 	int value;
 	enum Keys key = NONE;
 
@@ -37,6 +42,10 @@ int console(void) {
 					sc_countSet(value);
 					break;
 				}
+				case RESET: {
+					reset();
+					break;
+				}
 			}
 		}
 	}
@@ -48,7 +57,8 @@ int memMovement(enum Keys key) {
 		     if (InstrCount > 0x0) {
 			     highlightCell(InstrCount, DEFAULT);
 			     InstrCount--;
-			     highlightCell(InstrCounter, RED);
+			     highlightCell(InstrCount, RED);
+			     displayBigChars(&display_bigchar);
 		     }
 		  return 0;
 	     }
@@ -57,14 +67,16 @@ int memMovement(enum Keys key) {
 				 highlightCell(InstrCount, DEFAULT);
 				 InstrCount++;
 				 highlightCell(InstrCount, RED);
+				 displayBigChars(&display_bigchar);
 			 }
 			 return 0;
 		 }
-		case UP{
+		case UP: {
 			if (InstrCount / 10) {/*REMEMBER: 9/10 == 0*/
 				highlightCell(InstrCount, DEFAULT);
 				InstrCount -= 10;
 				highlightCell(InstrCount, RED);
+				displayBigChars(&display_bigchar);
 			}
 		    return 0;
 		}
@@ -73,6 +85,7 @@ int memMovement(enum Keys key) {
 				highlightCell(InstrCount, DEFAULT);
 				InstrCount += 10;
 				highlightCell(InstrCount, RED);
+				displayBigChars(&display_bigchar);
 			}
 			return 0;
 		}
@@ -119,4 +132,11 @@ int consoleLoadMem() {
 
 int consoleUpdateInstr() {
 	return sc_countGet(&InstrCount);
+}
+
+int reset() {
+	sc_memoryInit();
+	sc_regInit();
+	drawAll();
+	return 0;
 }

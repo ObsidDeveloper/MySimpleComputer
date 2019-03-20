@@ -31,19 +31,21 @@ bg.o: bg.c
 	gcc -c bg.c
 
 project: 
-	make MSC &&
-	make MT &&
-	make MBC &&
-	make RK &&
-	make console &&
+	make MSC
+	make MT
+	make MBC
+	make RK
 	make program
 	
-program: main.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
-	gcc -o binar main.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
+program: main.o interface.o msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
+	gcc -o binar main.o interface.o -L. msca/msc.a mta/mt.a mbca/mbc.a rk/rk.a console/console.a
 
-main.o: 
-	gcc main.c -c main.o
+interface.o: interface.c
+	gcc interface.c -c
 
+main.o: main.c
+	gcc main.c -c
+	
 console: 
 	cd console/ && make console.a
 
@@ -62,6 +64,19 @@ RK:
 SAT: 
 	cd sat/ && make sat.a
 
+rk/rk.a: ReadKey.o
+	ar cr rk/rk.a ReadKey.o
+	
+ReadKey.o: rk/ReadKey.c
+	gcc -c rk/ReadKey.c
+
+pro: interface.o
+	cd msca/ && make msc.a
+	cd mta/ && make mt.a
+	cd mbca/ && make mbc.a
+	cd rk/ && make rk.a
+	cd console/ && make console.a
+	gcc -o model interface.o -L. console/console.a msca/msc.a mta/mt.a rk/rk.a
 
 clean: 
 	rm *.o
