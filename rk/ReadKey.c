@@ -8,7 +8,7 @@
 #include "ReadKey.h"
 #include "../mta/MyTerminal.h"
 
-struct termios __term_state;
+struct termios new_term_state;
 struct termios termState;
 
 struct termios origin;
@@ -18,17 +18,13 @@ void termInit()
     rk_myTermSave(&termState);
 }
 
-void defaultTermSettings(struct termios *termState)
-{
-    *termState = __term_state;
-}
-
 int rk_readKey(enum Keys *key) {
 	int term = open(TERM, O_RDWR);
 	char buf[8];
-	tcgetattr(0, &origin);
+	
+	tcgetattr(0, &origin); /*save a term in rk*/
 	struct termios termState = __term_state;
-	rk_myTermRegime(&termState, 0, 0, 1, 0, 1);
+	rk_myTermRegime(&new_term_state, 0, 0, 1, 0, 1);
 	int num = read(term, &buf, 4);
 	buf[7] = 0;
 	
@@ -74,13 +70,13 @@ int rk_readKey(enum Keys *key) {
     	*key = LEFT;
     else
     	*key = NONE;
-    rk_myTermRegime(&termState, 1, 0, 0, 1, 1);
+    /*rk_myTermRegime(&termState, 1, 0, 0, 1, 1);*/
     tcsetattr(0, TCSANOW, &origin);
 
 	return 0;
 }
 
-int rk_myTermRegime(struct termios const *currState, int regime, int vtime, int vmin, int echo, int sigint) {
+int rk_myTermRegime(struct termios *currState, int regime, int vtime, int vmin, int echo, int sigint) {
 	if (regime < 0 || regime > 1 || echo < 0 || echo > 1 || sigint < 0 || sigint > 1) return -1;
 
 	struct termios newTermState = *currState;

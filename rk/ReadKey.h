@@ -23,9 +23,8 @@ enum Keys {
 	ENTER
 };
 void termInit();
-void defaultTermSettings(struct termios *termState);
 int rk_readKey(enum Keys *key);
-int rk_myTermRegime(struct termios const *currState, int regime, int vtime, int vmin, int echo, int sigint);
+int rk_myTermRegime(struct termios *currState, int regime, int vtime, int vmin, int echo, int sigint);
 int rk_myTermSave(struct termios *termState);
 int rk_myTermRestore(struct termios *currState);
 
