@@ -49,3 +49,5 @@ void console() {
 	rk_myTermRestore(NULL);
 	mt_gotoXY(30, 1);
 }
+
+
