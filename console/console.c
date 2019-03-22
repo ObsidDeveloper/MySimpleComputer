@@ -6,119 +6,46 @@
 #include "../rk/ReadKey.h"
 #include "console.h"
 
-int drawAll() {
-	printf("draw");
+
+void console() {
 	mt_clrscr();
-	creatBlock(&display_mem, 2);
-	creatBlock(&display_accum, 2);
-	creatBlock(&display_instr_count, 2);
-	creatBlock(&display_opers, 2);
-	creatBlock(&display_keys, 2);
-	creatBlock(&display_bigchar, 2);
-
-	displayMemory(&display_mem);
-	displayAccum(&display_accum);
-	displayCount(&display_instr_count);
-	displayOpers(&display_opers);
-	displayKeys(&display_keys);
-	displayBigChars(&display_bigchar);
-
-	return 0;
-}
-
-int displayMemory(struct block_info *mem_block) {
-	int i = 0;
-	int x = mem_block->x + 1;
-	int y = mem_block->y + 1;
-	/*mt_gotoXY(x, y);*/ /*unuseful*/
+	fflush(stdout); 
+	enum Keys key = NONE;
+	sc_regSet(IGNORTACT, 0);
+	mem_ptr = 0;
+	/*needed to mormal work begin*/
 	
 	int value;
-	while (i < N) {
-		sc_memoryGet(i, &value);
-		printNumber(x, y, value, DEFAULT);
-		i++;
-		y += 6;
-		if (i%10 == 0) x++;
-	}
-	return 0;
-}
-
-int displayAccum(struct block_info *acc_block) {
-	int x = acc_block->x + 1;
-	int y = acc_block->y + 4;
-	int value;
-	sc_accumGet(&value);
-	printNumber(x, y, value, DEFAULT);
-	return 0;
-}
-
-int displayCount(struct block_info *count_block) {
-	int x = count_block->x + 1;
-	int y = count_block->y + 4;
-	consoleUpdateInstr();
-	printNumber(x, y, InstrCount, count_block->bg_textcolor);
-	return 0;
-}
-
-int displayOpers(struct block_info *opers_block) {
-	int value;
-	sc_memoryGet(InstrCount, &value);
+	setDisplayNull();
 	
-	mt_gotoXY(opers_block->x + 1, opers_block->y + 4);
-	int buf;
-	buf = value >> 7;
-	printf("%02X :", buf);
-	buf = value & bits7;
-	printf("%02X", buf);
-	mt_gotoXY(opers_block->x, opers_block->y);
-	return 0;
-}
+	termInit(); /*save terminal to restore after a MSC work*/
+	while(key != EXIT) {
+		showAll();
 
-int displayKeys(struct block_info *keys_block) {
-	int x = keys_block->x + 1;
-	int y = keys_block->y + 4;
-	mt_gotoXY(x++, y);
-	printf("l - load");
+		rk_readKey(&key);
+		
+		sc_regGet(IGNORTACT, &value);
+		if (value == 0)
+		{
+			if (key == RIGHT) if (mem_ptr < N - 1) mem_ptr++, updateMemDisplay();
+			if (key == LEFT) if (mem_ptr > 0)  mem_ptr--, updateMemDisplay();
+			if (key == UP) if (mem_ptr - 10 >= 0) mem_ptr -= 10, updateMemDisplay();
+			if (key == DOWN) if (mem_ptr + 10 < N) mem_ptr += 10, updateMemDisplay();
 
-	mt_gotoXY(x++, y);
-	printf("s - save");
-
-	mt_gotoXY(x++, y);
-	printf("r - run");
-
-	mt_gotoXY(keys_block->x, y - 4);
-	return 0;
-}
-
-int displayBigChars(struct block_info *bigchar_block) {
-	char bigchar_buffer[6];
-	int value;
-
-	sc_memoryGet(InstrCount, &value);
-	if (value >= 0) {
-		sprintf(bigchar_buffer, "+%04X", value);
+			if (key == SAVE) sc_memorySave("memory.dat");
+			if (key == KLOAD) sc_memoryLoad("memory.dat");
+			if (key == F5) setAcc();
+			if (key == F6) setPointer();
+		}
+		/*interrupts available*/
+		if (key == RESET) reset();
+		if (key == RUN) {
+			
+		}
+		if (key == STEP) {
+			
+		}
 	}
-	else {
-		sprintf(bigchar_buffer, "-%04X", value);
-	}
-
-	int x = bigchar_block->x + 2;
-	int y = bigchar_block->y + 4;
-	int i;
-	int big[2];
-	for (i = 0; i < 5; i++) {
-		bc_initBigChar(big, bigchar_buffer[i]);
-		bc_printbigchar(big, x, y, WHITE, BLACK);
-		y+= 9;
-	}
-	return 0;
+	rk_myTermRestore(NULL);
+	mt_gotoXY(30, 1);
 }
-
-int messageBox(struct message_box *box, const char *message) {
-	creatMessageBox(box, message);
-	if (!box->input_enabled) {
-		getchar(); /*press anykey to continue*/
-	}
-	return 0;
-}
-/*fucking Google-Translate*/

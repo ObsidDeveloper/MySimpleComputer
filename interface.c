@@ -16,6 +16,7 @@ void displayInOut() {
 	int value;
 	displayRegGet(IO, &value);
 	if (value) return;
+	
 	mt_setfgcolor(BLUE);
 	mt_setbgcolor(DEFAULT);
 	bc_box(23, 1, 3, 42);
@@ -31,17 +32,16 @@ void displayInOut() {
 
 	mt_gotoXY(24, 21);
 	if (input < 10000){
+		
 	}
-	else{
+	else {
 	}
 
 	mt_gotoXY(24, 63);
-	if (output < 10000)
-	{
+	if (output < 10000) {
 		
 	}
-	else
-	{
+	else {
 		
 	}
 	displayRegSet(IO, 1);

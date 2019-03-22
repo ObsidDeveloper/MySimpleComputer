@@ -4,143 +4,55 @@
 #include "../mta/MyTerminal.h"
 #include "../rk/ReadKey.h"
 
-#define NEED_COLS 85
-#define NEED_ROWS 34
+#define STD_X_MEM 1
+#define STD_Y_MEM 1
+#define STD_DX_MEM 12
+#define STD_DY_MEM 62
 
-int term_rows;
-int term_cols;
-
-int bg_msc;
-int fg_msc;
-
-int highlight;
-
-/*recovery colors*/
-int bg_res;
-int fg_res;
-
-int initColors();
-
-char str_from_input[128]; /*buffer for input in console*/
-
-/*struct for saving data about a display*/
-struct block_info {
-	int x;
-	int y;
-	int deltaX;
-	int deltaY;
-	char str[16]; 
-	int block_color; /*in next commits remove?*/
-	int bg_textcolor;
-	int fg_textcolor; 
-};
-
-struct block_info display_mem; /*memory field*/
-struct block_info display_accum; /*field for accumulator value*/
-struct block_info display_opers;
-struct block_info display_instr_count; /*nummer of cell in memory*/
-struct block_info display_keys; /*help-list of keys for user*/
-struct block_info display_bigchar; /*display for printing cell value as a bigchar*/
-
-/*init*/
-int initialization();
-
-#define STD_MEM_SIZE_X 22
-#define STD_MEM_SIZE_Y 62
-
-#define STD_IND_SIZE_X 3
-#define STD_IND_SIZE_Y 18
-
-#define STD_BIGCH_SIZE_X 10
-#define STD_BIGCH_SIZE_Y 42
-
-#define STD_KEYS_SIZE_X 10
-#define STD_KEYS_SIZE_Y 36
-
-	/*init blocks*/
-int initMemoryDisplay();
-int initAccumDisplay();
-int initCountDisplay();
-int initOpersDisplay();
-int initKeysDisplay();
-int initBigCharDisplay();
+#define STD_X_ACC 1
+#define STD_Y_ACC 63
 
 
-struct message_box {
-	struct block_info mes_block;
-	const char *message;
-	int input_enabled;
-	int inputline_lenght;
-	int inputline_bgcolor;
-	int inputline_fgcolor;
-};
+int mem_ptr;
 
-#define STD_MESBOX_SIZE_X 7
-#define STD_MESBOX_SIZE_Y 56
+int acces_inout;
+int acces_mem;
+int acces_oper;
+int acces_acc;
+int acces_flag;
+int acces_bc;
+int acces_count;
+int acces_menu;
 
-struct message_box console_box;
-struct message_box alert_box;
+int display_acces;
 
-int initConsoleBox();
-int initAlertBox();
+#define MEM 0
+#define ACC 1
+#define INSTR 2
+#define OPER 3
+#define KEYS 4
+#define BC 5
+#define IO 6
+#define FLAGS 7
 
-int message_display_status; /*unnecessary variable?*/
+void displayInOut();
+void displayMemory();
+void displayAccumulator();
+int displayCounter();
+void displayOperation();
+void displayFlags();
+void displayMenu();
+void displayBigCharArea();
+void reset();
+void showAll();
+void messageBox();
+void setAcc();
+int setInstrCounter();
+void setPointer();
+void console();
+int setAccesNull();
 
-/*psevdodraw*/
-#define NOWHERE_POSREG 0
-#define CENTER_POSREG 2
-#define BEGIN_POSREG 10
-
-int creatBlock(struct block_info *block, int posreg);
-int creatMessageBox(struct message_box *box, const char *message);
-
-int returnCellPos(int nummer, int *x, int *y);
-	/*psevdodraw - separate drawing functions*/
-int drawField(int x, int y, int deltaX, int deltaY);
-int drawInputLine(int x, int y, struct message_box *box);
-
-int printNumber(int x, int y, int value, enum Colors bg_c);
-
-	/*psevdodraw/'color funcs'*/
-int initHighLight(enum Colors c);
-int highlightCell(int nummer, enum Colors light);
-int setHighLight(enum Colors c);
-int saveColors(enum Colors bg, enum Colors fg, int instruction);
-int returnSavedColors(enum Colors *bg, enum Colors *fg);
-
-int setDefaultColorsMSC();
-
-/*console display - continue of psevdodraw, use thr psevdodraw*/
-int drawAll();
-
-	/*displays*/
-int displayMemory(struct block_info *mem_block);
-int displayAccum(struct block_info *acc_block);
-int displayCount(struct block_info *count_block);
-int displayOpers(struct block_info *opers_block);
-int displayKeys(struct block_info *keys_block);
-int displayBigChars(struct block_info *bigchar_block);
-
-	/*messageBox*/
-int messageBox(struct message_box *box, const char *message);
-
-/*InstCount - is a variable to display the current memory location.*/
-int InstrCount;
-
-int consoleUpdateInstr(); /*updating from register instruction_counter*/
-/*conmanage*/
-
-int console(void);
-
-int memMovement(enum Keys key);
-
-int reset();
-	/*console interface of model MSC*/
-int consoleSaveMem();
-int consoleLoadMem();
-int consoleComLoad(char *filename);
-int consoleComSave(char *filename);
-
-	/*support of conmanage*/
-int formatStrBackNull(char *str, int max_size); /*set real 0 in the end instread of '\n' */
+int updateMemDisplay();
+int displayRegGet(int flag, int * value);
+int displayRegSet(int flag, int value);
 #endif

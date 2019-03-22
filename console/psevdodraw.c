@@ -7,162 +7,253 @@
 #include "../rk/ReadKey.h"
 #include "console.h"
 
-int creatBlock(struct block_info *block, int posreg) {
-	FILE *g = fopen("f.txt", "wt");
-	fprintf(g, "vrode");
-	/*creating box*/
-	mt_setfgcolor(block->block_color);
-	bc_box(block->x, block->y, block->deltaX, block->deltaY);
-	/*end of creating without str*/
-	
-	if (posreg) {/*if zero do not print header*/
-		int strpos = block->deltaY / posreg; /*set pos*/
-		mt_gotoXY(block->x, strpos);
-
-		/*print with params*/
-		mt_setfgcolor(block->bg_textcolor);
-		mt_setbgcolor(block->fg_textcolor);
-		printf(" %s ", block->str);
-	}
-	
-	mt_gotoXY(block->x, block->y); /*return pos to begin, default*/
-	setDefaultColorsMSC();
-	return 0;
-	/*The performance is mentally verified 13.03.19 #1*/
+void showAll() {
+	displayInOut();
+	displayMemory();
+	displayAccumulator();
+	displayCounter();
+	displayOperation();
+	displayFlags();
+	displayMenu();
+	displayBigCharArea();
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(DEFAULT);
+	fflush(stdout);
+	mt_gotoXY(1, 1);
 }
 
-/*paint over the place number*/
-int highlightCell(int nummer, enum Colors light) {
+void displayInOut() {
 	int value;
-	sc_memoryGet(nummer, &value); /*get value through memory interface*/
+	displayRegGet(IO, &value);
+	if (value) return;
 	
-	int x, y;
-	returnCellPos(nummer, &x, &y);
-	mt_gotoXY(x, y);
-	
-	mt_setbgcolor(light);
-	printf("+%04X", value);
-	setDefaultColorsMSC();
-	return 0;
-	/*The performance is mentally verified 13.03.19 #1*/
-}
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(23, 1, 3, 42);
+	bc_box(23, 43, 3, 42);
 
-int returnCellPos(int nummer, int *x, int *y) {
-	if (0 < nummer && nummer < N) {
-		/*(1,1) - posirion of memory[0]*/
-		*x = display_mem.x + 1;
-		*y = display_mem.y + 1;
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	mt_gotoXY(23, 19);
+	printf(" Input ");
+	mt_gotoXY(23, 61);
+	printf(" Output ");
+	mt_setbgcolor(DEFAULT);
+
+	mt_gotoXY(24, 21);
+	if (input < 10000){
 		
-		*x += nummer/10; /*remember: 9/10 == 0*/
-		*y += (nummer%10)*(5 + 1);
-		return 0;
-	}
-	return -1;
-	/*The performance is mentally verified 13.03.19 #1*/
-}
-
-int printNumber(int x, int y, int value, enum Colors bg_c) {
-	mt_gotoXY(x, y);
-	mt_setbgcolor(bg_c);
-	if (value >= 0) {
-		printf("+%04X", value);
-	} else {
-		printf("+%04X", value);
-	}
-	mt_setbgcolor(bg_msc);
-	/*The performance is mentally verified 13.03.19 #1*/
-}
-
-int setDefaultColorsMSC() {
-	mt_setfgcolor(fg_msc);
-	mt_setbgcolor(bg_msc);
-	return 0;
-	/*The performance is mentally verified 13.03.19 #1*/
-}
-
-int saveColors(enum Colors bg, enum Colors fg, int instruction) {
-	bg_res = bg;
-	fg_res = fg;
-	if (instruction) {
-		mt_setbgcolor(bg);
-		mt_setfgcolor(fg);
-	}
-	return 0;
-}
-
-int returnSavedColors(enum Colors *bg, enum Colors *fg) {
-	if (bg == NULL || fg == NULL) return -1;
-	*bg = bg_res;
-	*fg = fg_res;
-	return 0;
-}
-
-int setHighLight(enum Colors c) {
-	highlight = c;
-	return 0;
-	/*The performance is mentally verified 13.03.19 #1*/
-}
-
-int creatMessageBox(struct message_box *box, const char *message) {
-	/*TODO: this func is too big(realy?), minimize, break into smaller funcs*/
-	creatBlock(&(box->mes_block), 0);
-	
-	int x = box->mes_block.x + 1;
-	int y = box->mes_block.y + 1;
-	int dl_x = x + box->mes_block.deltaX - 1;
-	int dl_y = y + box->mes_block.deltaY - 1;
-	
-	mt_setbgcolor(box->mes_block.block_color);
-	drawField(x, y, dl_x, dl_y);
-	
-	box->message = message;
-	y = box->mes_block.y + (box->mes_block.deltaY - strlen(message))/2;
-	
-	mt_gotoXY(x, y);
-	mt_setbgcolor(box->mes_block.bg_textcolor);
-	mt_setfgcolor(box->mes_block.fg_textcolor);
-	
-	printf("%s", message); /*Hm, why is that? It can be 'printf(message)'. Think about it.*/
-	/*remember: message is constant char-string*/
-	if (box->input_enabled) {
-		x += 2;
-		mt_gotoXY(x, y);
-		mt_setbgcolor(box->inputline_bgcolor);
-		mt_setfgcolor(box->inputline_fgcolor);
-		int i;
-		for (i = 0; i < box->inputline_lenght; i++) {
-			printf(" ");
-		}
-		mt_gotoXY(x, y);
 	}
 	else {
-		x += 2;
-		mt_gotoXY(x, y);
-		printf("OK");
 	}
-	return 0;
+
+	mt_gotoXY(24, 63);
+	if (output < 10000) {
+		
+	}
+	else {
+		
+	}
+	displayRegSet(IO, 1);
 }
 
-int drawField(int x, int y, int deltaX, int deltaY) {
-	int drawer_i, drawer_j;
-	for (drawer_i = x; drawer_i < deltaX; drawer_i++) {
-		mt_gotoXY(drawer_i, y);
-		for (drawer_j = y; drawer_j < deltaY; drawer_j++) {
-			printf(" ");
+void displayMemory() {
+	int value;
+	displayRegGet(MEM, &value);
+	int k = 2;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(STD_X_MEM, STD_Y_MEM, STD_DX_MEM, STD_DY_MEM);
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	mt_gotoXY(1, 28);
+	printf("Memory");
+	mt_gotoXY(2, 2);
+
+	int i;
+	for (i = 0; i < N; i++) {
+		mt_setbgcolor(DEFAULT);
+		if (mem_ptr == i) mt_setbgcolor(RED);
+		sc_memoryGet(i, &value);
+		if ((value >> 14)) {
+			value = value & 0x3fff;
+			printf("-%04X ", value);
+		}
+		else {
+			printf("+%04X ", value);
+		}
+		if ((i + 1) % 10 == 0) {
+			k++;
+			mt_gotoXY(k, 2);
 		}
 	}
-	return 0;
-	/*The performance is mentally verified 13.03.19 #1*/
+	mt_gotoXY(30, 1);
+	displayRegSet(MEM, 1);
 }
 
-int drawInputLine(int x, int y, struct message_box *box) {
-	mt_gotoXY(x, y);
-	mt_setbgcolor(box->inputline_bgcolor);
-	mt_setfgcolor(box->inputline_fgcolor);
-	int i;
-	for (i = 0; i < box->inputline_lenght; i++) {
-		printf(" ");
+void displayAccumulator() {
+	int value;
+	displayRegGet(ACC, &value);
+	if (value) return;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(1, 63, 3, 22);
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	mt_gotoXY(1, 67);
+	printf(" accumulator ");
+	mt_setbgcolor(DEFAULT);
+	mt_gotoXY(2, 71);
+	value = (accumulator & 0x3fff);
+	if ((accumulator >> 14))
+	{
+		printf("-%04X", value);
 	}
-	mt_gotoXY(x, y);
-	setDefaultColorsMSC();
+	else
+	{
+		printf("+%04X", accumulator);
+	}
+	displayRegSet(ACC, 1);
+}
+
+int displayCounter() {
+	int value;
+	displayRegGet(INSTR, &value);
+	if (value) return 0;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(4, 63, 3, 22);
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	mt_gotoXY(4, 64);
+	printf(" instructionCounter ");
+	mt_setbgcolor(DEFAULT);
+	mt_gotoXY(5, 71);
+	printf("+%04X", mem_ptr);
+	acces_count = 1;
+	displayRegSet(INSTR, 1);
+	return 0;
+}
+
+void displayOperation() {
+	int value;
+	displayRegGet(OPER, &value);
+	if (value) return;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(7, 63, 3, 22);
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	mt_gotoXY(7, 68);
+	printf(" Operation ");
+
+	sc_memoryGet(mem_ptr, &value);
+	command = value >> 7;
+	operand = value & bits7;
+	mt_setbgcolor(DEFAULT);
+	mt_gotoXY(8, 70);
+	printf("%02X : %02X", command, operand);
+	
+	displayRegSet(OPER, 1);
+}
+
+void displayFlags() {
+	int value;
+	displayRegGet(FLAGS, &value);
+	if (value) return;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(10, 63, 3, 22);
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	mt_gotoXY(10, 70);
+	printf(" Flags ");
+
+	mt_setbgcolor(DEFAULT);
+	sc_regGet(WRONGADD, &value);
+	if (value == 1) {
+		mt_gotoXY(11, 69);
+		printf("A");
+	}
+
+	sc_regGet(WRONGFLAG, &value);
+	if (value == 1) {
+		mt_gotoXY(11, 71);
+		printf("F");
+	}
+
+	sc_regGet(ERRORFILE, &value);
+	if (value == 1) {
+		mt_gotoXY(11, 73);
+		printf("D");
+	}
+
+	sc_regGet(IGNORTACT, &value);
+	if (value == 1) {
+		mt_gotoXY(11, 75);
+		printf("T");
+	}
+
+	sc_regGet(ERRORCOM, &value);
+	if (value == 1) {
+		mt_gotoXY(11, 77);
+		printf("C");
+	}
+	displayRegSet(FLAGS, 1);
+}
+
+void displayMenu() {
+	if (acces_menu) return;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(13, 47, 10, 38);
+	mt_gotoXY(13, 48);
+	mt_setfgcolor(DEFAULT);
+	mt_setbgcolor(BLUE);
+	printf(" Keys: ");
+	mt_setbgcolor(DEFAULT);
+	mt_gotoXY(14, 48);
+	printf("L  - load");
+	mt_gotoXY(15, 48);
+	printf("S  - save");
+	mt_gotoXY(16, 48);
+	printf("R  - run");
+	mt_gotoXY(17, 48);
+	printf("T  - step");
+	mt_gotoXY(18, 48);
+	printf("I  - reset");
+	mt_gotoXY(19, 48);
+	printf("F5 - accumulator");
+	mt_gotoXY(20, 48);
+	printf("F6 - instructionCounter");
+	mt_gotoXY(21, 48);
+	printf("Press \"Q\" to exit.");
+	acces_menu = 1;
+}
+
+void displayBigCharArea() {
+	int value;
+	displayRegGet(BC, &value);
+	if (value) return;
+	mt_setfgcolor(BLUE);
+	mt_setbgcolor(DEFAULT);
+	bc_box(13, 1, 10, 46);
+
+	char s[8];
+    char ss[8];
+
+	sc_memoryGet(mem_ptr, &value);
+	if ((value >> 14)) {
+		value = value & 0x3fff;
+		sprintf(ss, "-%04X", value);
+	}
+	else {
+		sprintf(ss, "+%04X", value);
+	}
+	
+	for (int i = 0; i < 5; i++){
+		bc_initBigChar(big, ss[i]);
+		bc_printbigchar(big, 14, 2 + i * 9, DEFAULT, DEFAULT);
+	}
+	
 }

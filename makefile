@@ -83,3 +83,4 @@ clean:
 	rm mta/mt.a
 	rm mbca/mbc.a
 	rm msca/msc.a
+	rm rk/rk.a
