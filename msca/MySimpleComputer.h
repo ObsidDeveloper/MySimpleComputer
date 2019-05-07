@@ -5,7 +5,7 @@
 #define M 10
 
 
-int memory[N];
+
 
 int sc_memoryInit();
 
@@ -27,7 +27,7 @@ int sc_memoryPrint();
 
 #define IGNORTACT 6
 
-int registr;
+
 
 
 int sc_regInit(void);
@@ -37,18 +37,20 @@ int sc_regSet(int flag, int value);
 int sc_regGet(int flag, int * value);
 
 
-int accumulator;
+
 
 int sc_accumGet(int *value);
 
 int sc_accumSet(int value);
 
 
-int instruction_counter;
+
 
 int sc_countGet(int *value);
 
 int sc_countSet(int value);
+
+int sc_countInkrement();
 
 #define bits7 0x7f /* 0111 1111 in bits, - to getting (&) first 7 bits of value*/
 #define bits8 0xff

@@ -76,7 +76,30 @@ pro: interface.o
 	cd mbca/ && make mbc.a
 	cd rk/ && make rk.a
 	cd console/ && make console.a
-	gcc -o model interface.o -L. console/console.a msca/msc.a mta/mt.a rk/rk.a
+	gcc -o model interface.o -L. console/console.a rk/rk.a mbca/mbc.a mta/mt.a msca/msc.a
+
+SC: 
+	make modellibs
+	make work
+
+work: main.o computer/computer.a console/console.a rk/rk.a mbca/mbc.a mta/mt.a msca/msc.a
+	gcc -o model main.o -L. computer/computer.a console/console.a rk/rk.a mbca/mbc.a mta/mt.a msca/msc.a
+
+modellibs: 
+	cd msca/ && make msc.a
+	cd mta/ && make mt.a
+	cd mbca/ && make mbc.a
+	cd rk/ && make rk.a
+	cd console/ && make console.a
+	cd computer/ && make computer.a
+	cd sat/ && make sat.a
+
+lab: main.o computer/computer.a console/console.a sat/sat.a rk/rk.a mbca/mbc.a mta/mt.a msca/msc.a
+	gcc -o model main.o -L. computer/computer.a console/console.a sat/sat.a rk/rk.a mbca/mbc.a mta/mt.a msca/msc.a
+
+CSC: 
+	make modellibs
+	make lab
 
 clean: 
 	rm *.o

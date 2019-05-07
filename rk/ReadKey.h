@@ -20,7 +20,8 @@ enum Keys {
 	RIGHT,
 	DOWN,
 	EDIT,
-	ENTER
+	ENTER,
+	CONS
 };
 void termInit();
 int rk_readKey(enum Keys *key);

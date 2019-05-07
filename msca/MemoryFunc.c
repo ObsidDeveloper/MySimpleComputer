@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "MySimpleComputer.h"
 
+int memory[N];
 
 int sc_memoryInit() {
 	int index = 0;

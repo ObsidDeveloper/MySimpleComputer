@@ -12,6 +12,8 @@
 #define STD_X_ACC 1
 #define STD_Y_ACC 63
 
+int command;
+int operand;
 
 int mem_ptr;
 
@@ -47,12 +49,16 @@ void reset();
 void showAll();
 void messageBox();
 void setAcc();
-int setInstrCounter();
+void setPointer();
 void setPointer();
 void console();
-int setAccesNull();
+void commandBox();
 
 int updateMemDisplay();
 int displayRegGet(int flag, int * value);
 int displayRegSet(int flag, int value);
+int setDisplayNull();
+
+int readFromConsole();
+int writeFromConsole(int value);
 #endif

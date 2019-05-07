@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "../mbca/BigChars.h"
@@ -6,6 +7,7 @@
 #include "../mta/MyTerminal.h"
 #include "../rk/ReadKey.h"
 #include "console.h"
+#include "../sat/sat.h"
 
 void messageBox() {
 	rk_myTermRestore(NULL); /*return std. term settings*/
@@ -39,11 +41,11 @@ void setPointer() {
     mt_setbgcolor(BLACK);
     mt_setfgcolor(DEFAULT);
     int ptr;
-	fscanf(stdin, "%x", &ptr);
+	fscanf(stdin, "%d", &ptr);
 	if (-1 < ptr && ptr < N) mem_ptr = ptr;
 		else sc_regSet(WRONGADD, 1);
     mt_setbgcolor(DEFAULT);
-    setAccesNull();
+	setDisplayNull();
 }
 
 void setAcc() {
@@ -65,8 +67,74 @@ void setAcc() {
 			value = ~value;
 			value = value | (0x1 << 14);
 		}
-	accumulator = value;
-    sc_memorySet(mem_ptr, value);
+	sc_accumSet(value);
+    //sc_memorySet(mem_ptr, value);
     mt_setbgcolor(DEFAULT);
-    setAccesNull();
+    setDisplayNull();
+}
+
+void commandBox() {
+	messageBox();
+	mt_gotoXY(6, 21);
+	mt_setfgcolor(RED);
+	printf("Print command:");
+	mt_gotoXY(7, 21);
+	char *command;
+	command = (char *)malloc(128);
+	/*gets(command);*/
+	fgets(command, 127, stdin);
+	int i;
+	int pr = 0;
+	char com[8];
+	for (i = 0; i < 128; i++) {
+		if ((command[i]) == 10) {
+			command[i] = 0;
+			break;
+		}
+		if ((command[i]) == 32) pr = 1;
+		if (i < 7 && !pr) {
+			com[i] = command[i];
+		}
+	}
+	char param1[32];
+	char param2[32];
+
+	FILE *f = fopen("fff.txt", "wt");
+	fprintf(f, "%s\n", com);
+	char *p1, *p2;
+	for (i = 0; command[i] && (command[i]) != 32; i++);
+	if (command[i]) {
+		fprintf(f, "hello\n");
+		int j;
+		i++;
+		for (j = 0; command[i] && (command[i]) != 32; i++, j++) {
+			param1[j] = command[i];
+		}
+		fprintf(f, "%d\n", j);
+		param1[j] = 0;
+		p1 = param1;
+		fprintf(f, "%s\n", p1);
+		if (command[i]) {
+			i++;
+			for (j = 0; command[i] && (command[i]) != 32; i++, j++) {
+				param2[j] = command[i];
+			}
+			param2[j] = 0;
+			p2 = param2;
+			fprintf(f, "%s\n", p2);
+		} else {
+			p2 = NULL;
+		}
+	} else {
+		p1 = p2 = NULL;
+	}
+	fflush(f);
+	fclose(f);
+	if (!strncmp(com, "sat", 3)) {
+		sat(p1, p2);
+	}
+	if (!strncmp(com, "load", 4)) {
+		sc_memoryLoad(p1);
+	}
+	setDisplayNull();
 }

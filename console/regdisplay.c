@@ -34,5 +34,6 @@ int updateMemDisplay() {
 	displayRegSet(ACC, 0);
 	displayRegSet(OPER, 0);
 	displayRegSet(BC, 0);
+	displayRegSet(INSTR, 0);
 	return 0;
 }

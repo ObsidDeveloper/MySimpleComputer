@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "../mbca/BigChars.h"
+#include "../computer/computer.h"
 #include "../msca/MySimpleComputer.h"
 #include "../mta/MyTerminal.h"
 #include "../rk/ReadKey.h"
@@ -36,18 +37,43 @@ void console() {
 			if (key == KLOAD) sc_memoryLoad("memory.dat");
 			if (key == F5) setAcc();
 			if (key == F6) setPointer();
+			
+			if (key == CONS) commandBox();
 		}
 		/*interrupts available*/
 		if (key == RESET) reset();
 		if (key == RUN) {
-			
+			sc_regSet(IGNORTACT, 1);
+			setTimer(1, 0, 2, 0);
 		}
 		if (key == STEP) {
-			
+			setTimer(0, 0, 0, 0);
+			sc_regSet(IGNORTACT, 0);
+			raise(SIGALRM);
 		}
 	}
 	rk_myTermRestore(NULL);
 	mt_gotoXY(30, 1);
 }
 
+void reset() {
+	sc_memoryInit();
+	sc_regInit();
+	sc_countSet(0);
+	setDisplayNull();
+}
 
+int readFromConsole() {
+	rk_myTermRestore(NULL);
+	mt_gotoXY(24, 21);
+	int value;
+	scanf("%x", &value);
+	return value;
+}
+
+int writeFromConsole(int value) {
+	rk_myTermRestore(NULL);
+	mt_gotoXY(24, 30);
+	printf("%x", value);
+	return 0;
+}

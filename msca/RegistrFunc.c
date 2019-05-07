@@ -1,5 +1,8 @@
 #include "MySimpleComputer.h"
 
+int instruction_counter;
+int accumulator;
+int registr;
 
 int sc_regInit(void) {
 	registr = registr & 0;
@@ -45,5 +48,11 @@ int sc_countGet(int *value) {
 
 int sc_countSet(int value) {
 	instruction_counter = value;
+	return 0;
+}
+
+int sc_countInkrement() {
+	if (instruction_counter == N - 1) return -1;
+	instruction_counter++;
 	return 0;
 }

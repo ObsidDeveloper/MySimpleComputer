@@ -1,11 +1,12 @@
 All: console.a
 
-OBJ = ../msca/MemoryFunc.o ../msca/RegistrFunc.o ../msca/CommandFunc.o ../mta/MyTerminal.o ../mbca/BigChars.o ../rk/ReadKey.o
-console.a: init.o console.o psevdodraw.o conmanage.o $(OBJ)
-	ar cr console.a init.o console.o psevdodraw.o conmanage.o $(OBJ)
+LIB = ../msca/MemoryFunc.o ../msca/RegistrFunc.o ../msca/CommandFunc.o ../mta/MyTerminal.o ../mbca/BigChars.o ../rk/ReadKey.o
 
-init.o: init.c
-	gcc -c init.c
+console.a: messagebox.o console.o psevdodraw.o regdisplay.o 
+	ar cr console.a messagebox.o console.o psevdodraw.o regdisplay.o
+
+messagebox.o: messagebox.c
+	gcc -c messagebox.c
 
 console.o: console.c
 	gcc -c console.c
@@ -13,8 +14,8 @@ console.o: console.c
 psevdodraw.o: psevdodraw.c
 	gcc -c psevdodraw.c
 
-conmanage.o: conmanage.c
-	gcc -c conmanage.c
+regdisplay.o: regdisplay.c
+	gcc -c regdisplay.c
 
 clean:
 	rm *.o

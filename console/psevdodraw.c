@@ -41,7 +41,7 @@ void displayInOut() {
 	mt_setbgcolor(DEFAULT);
 
 	mt_gotoXY(24, 21);
-	if (input < 10000){
+	/*if (input < 10000){
 		
 	}
 	else {
@@ -53,7 +53,7 @@ void displayInOut() {
 	}
 	else {
 		
-	}
+	}*/
 	displayRegSet(IO, 1);
 }
 
@@ -104,14 +104,15 @@ void displayAccumulator() {
 	printf(" accumulator ");
 	mt_setbgcolor(DEFAULT);
 	mt_gotoXY(2, 71);
-	value = (accumulator & 0x3fff);
-	if ((accumulator >> 14))
+	sc_accumGet(&value);
+	value = (value & 0x3fff);
+	if ((value >> 14))
 	{
 		printf("-%04X", value);
 	}
 	else
 	{
-		printf("+%04X", accumulator);
+		printf("+%04X", value);
 	}
 	displayRegSet(ACC, 1);
 }
@@ -239,7 +240,7 @@ void displayBigCharArea() {
 	mt_setbgcolor(DEFAULT);
 	bc_box(13, 1, 10, 46);
 
-	char s[8];
+	int big[2] = {0, 0};
     char ss[8];
 
 	sc_memoryGet(mem_ptr, &value);

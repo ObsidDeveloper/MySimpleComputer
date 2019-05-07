@@ -23,7 +23,6 @@ int rk_readKey(enum Keys *key) {
 	char buf[8];
 	
 	tcgetattr(0, &origin); /*save a term in rk*/
-	struct termios termState = __term_state;
 	rk_myTermRegime(&new_term_state, 0, 0, 1, 0, 1);
 	int num = read(term, &buf, 4);
 	buf[7] = 0;
@@ -68,6 +67,8 @@ int rk_readKey(enum Keys *key) {
     	*key = RIGHT;
     else if (strcmp(buf, "\E[D") == 0)
     	*key = LEFT;
+	else if (strcmp(buf, "m") == 0)
+		*key = CONS;
     else
     	*key = NONE;
     /*rk_myTermRegime(&termState, 1, 0, 0, 1, 1);*/
