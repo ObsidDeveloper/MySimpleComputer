@@ -45,7 +45,7 @@ void displayOperation();
 void displayFlags();
 void displayMenu();
 void displayBigCharArea();
-void reset();
+void reset(int signo);
 void showAll();
 void messageBox();
 void setAcc();

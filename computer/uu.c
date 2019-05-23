@@ -1,15 +1,20 @@
 #include "../msca/MySimpleComputer.h"
+#include "../console/console.h"
 #include "computer.h"
+#include <stdio.h>
 
 int cu() {
 	int value, command, operand;
 	int current_cell;
+	sc_regGet(IGNORTIME, &value);
+	if (value) return 1;
+	FILE *f = fopen("uut.txt", "wt");
 	sc_countGet(&current_cell);
 
 	sc_memoryGet(current_cell, &value);
 	if (sc_commandDecode(value, &command, &operand)) {
-		setTimer(0, 0, 0, 0);
-		sc_regSet(IGNORTACT, 1);
+		sc_regSet(IGNORTIME, 1);
+		sc_regSet(WRONGOP, 1);
 		return -1;
 	}
 
@@ -18,6 +23,8 @@ int cu() {
 		    case READ: {
 				value = readFromConsole();
 			    sc_memorySet(operand, value);
+				fprintf(f, "read\n");
+				fflush(f);
 			    break;
 		    }
 
@@ -28,7 +35,6 @@ int cu() {
 			}
 
 			case LOAD: {
-				sc_accumGet(&value);
 				sc_memoryGet(operand, &value);
 				sc_accumSet(value);
 				break;
@@ -50,9 +56,7 @@ int cu() {
 			case JNEG: {
 				sc_accumGet(&value);
 				if (value < 0) {
-					if (!sc_countSet(operand)) {
-						return 0;
-					}
+					return sc_countSet(operand);
 				}
 			    break;
 		    }
@@ -60,17 +64,16 @@ int cu() {
 			case JZ: {
 				sc_accumGet(&value);
 				if (value == 0) {
-					if (!sc_countSet(operand)) {
-						return 0;
+					if (sc_countSet(operand)) {
+						return 1;
 					}
 				}
 				break;
 			}
 
 		case HALT: {
-			setTimer(0, 0, 0, 0);
-			sc_regSet(IGNORTACT, 1);
-			break;
+			sc_regSet(IGNORTIME, 1);
+			return -1;
 		}
 
 		default:
@@ -78,5 +81,6 @@ int cu() {
 		}
 	}
 	sc_countInkrement();
+	setDisplayNull();
 	return 0;
 }

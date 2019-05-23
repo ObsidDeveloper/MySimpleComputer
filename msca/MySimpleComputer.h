@@ -26,7 +26,7 @@ int sc_memoryPrint();
 #define WRONGOP 5
 
 #define IGNORTACT 6
-
+#define IGNORTIME 7
 
 
 

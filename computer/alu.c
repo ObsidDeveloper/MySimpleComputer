@@ -37,6 +37,5 @@ int alu(int command, int operand) {
 			return -1;
 		}
 	}
-	sc_countInkrement(); /*instruction_counter++*/
 	return 0;
 }

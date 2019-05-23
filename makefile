@@ -1,4 +1,4 @@
-All: bg
+All: CSC
 
 bg: bg.o mbca/mbc.a msca/msc.a mta/mt.a
 	gcc -o bg bg.o -L. mbca/mbc.a msca/msc.a mta/mt.a

@@ -8,6 +8,9 @@
 #include "console.h"
 
 void showAll() {
+	int value;
+	sc_regGet(IGNORTACT, &value);
+	if (value) sc_countGet(&mem_ptr);
 	displayInOut();
 	displayMemory();
 	displayAccumulator();
@@ -19,7 +22,7 @@ void showAll() {
 	mt_setfgcolor(DEFAULT);
 	mt_setbgcolor(DEFAULT);
 	fflush(stdout);
-	mt_gotoXY(1, 1);
+	/*mt_gotoXY(1, 1);*/
 }
 
 void displayInOut() {
@@ -61,6 +64,9 @@ void displayMemory() {
 	int value;
 	displayRegGet(MEM, &value);
 	int k = 2;
+	FILE *ffff = fopen("disMem.txt", "wt");
+	fprintf(ffff, "%d", mem_ptr);
+	fflush(ffff);
 	mt_setfgcolor(BLUE);
 	mt_setbgcolor(DEFAULT);
 	bc_box(STD_X_MEM, STD_Y_MEM, STD_DX_MEM, STD_DY_MEM);

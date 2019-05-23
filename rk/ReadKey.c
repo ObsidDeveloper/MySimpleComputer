@@ -18,10 +18,14 @@ void termInit()
     rk_myTermSave(&termState);
 }
 
+int rk_regime() {
+	return rk_myTermRegime(&new_term_state, 0, 0, 1, 0, 1);
+}
+
 int rk_readKey(enum Keys *key) {
 	int term = open(TERM, O_RDWR);
 	char buf[8];
-	
+	FILE *ff = fopen("fgs.txt", "at");
 	tcgetattr(0, &origin); /*save a term in rk*/
 	rk_myTermRegime(&new_term_state, 0, 0, 1, 0, 1);
 	int num = read(term, &buf, 4);
@@ -59,21 +63,23 @@ int rk_readKey(enum Keys *key) {
     	*key = F5;
     else if (strcmp(buf, "\E[17~") == 0)
     	*key = F6;
-    else if (strcmp(buf, "\E[A") == 0)
+    else if (strncmp(buf, "\E[A", 3) == 0)
     	*key = UP;
-    else if (strcmp(buf, "\E[B") == 0)
+    else if (strncmp(buf, "\E[B", 3) == 0)
     	*key = DOWN;
-    else if (strcmp(buf, "\E[C") == 0)
+    else if (strncmp(buf, "\E[C", 3) == 0)
     	*key = RIGHT;
-    else if (strcmp(buf, "\E[D") == 0)
+    else if (strncmp(buf, "\E[D", 3) == 0)
     	*key = LEFT;
 	else if (strcmp(buf, "m") == 0)
 		*key = CONS;
     else
     	*key = NONE;
+	fprintf(ff, "\n%d, but UP: %d", *key, UP);
+	fflush(ff);
     /*rk_myTermRegime(&termState, 1, 0, 0, 1, 1);*/
     tcsetattr(0, TCSANOW, &origin);
-
+	close(term);
 	return 0;
 }
 

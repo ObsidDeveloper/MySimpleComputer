@@ -28,6 +28,6 @@ int rk_readKey(enum Keys *key);
 int rk_myTermRegime(struct termios *currState, int regime, int vtime, int vmin, int echo, int sigint);
 int rk_myTermSave(struct termios *termState);
 int rk_myTermRestore(struct termios *currState);
-
+int rk_regime();
 #define CHECK_REG_ECH_SIG (regime < 0 || regime > 1 || echo < 0 || echo > 1 || sigint < 0 || sigint > 1)
 #endif
