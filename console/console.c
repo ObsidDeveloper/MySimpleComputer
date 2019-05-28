@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <signal.h>
 #include "../mbca/BigChars.h"
 #include "../computer/computer.h"
 #include "../msca/MySimpleComputer.h"
@@ -44,13 +44,9 @@ void console() {
 			
 			if (key == CONS) commandBox();
 		} else {
-			sc_countGet(&value);
-			mem_ptr = value;
-			fprintf(f, "fuck %d\n", value);
-			fflush(f);
+			
 			updateMemDisplay();
 		}
-		/*interrupts available*/
 		if (key == RESET) raise(SIGUSR1);
 		if (key == RUN) {
 			sc_regSet(IGNORTACT, 1);
@@ -60,7 +56,9 @@ void console() {
 		if (key == STEP) {
 			sc_regSet(IGNORTACT, 1);
 			cu();
+			showAll();
 			sc_regSet(IGNORTACT, 0);
+			
 		}
 	}
 	rk_myTermRestore(NULL);
@@ -73,6 +71,7 @@ void reset(int signo) {
 	sc_memoryInit();
 	sc_regInit();
 	sc_countSet(0);
+	mem_ptr = 0;
 	setDisplayNull();
 }
 
@@ -89,10 +88,23 @@ int readFromConsole() {
 
 int writeFromConsole(int value) {
 	rk_myTermRestore(NULL);
-	mt_gotoXY(24, 30);
+	mt_gotoXY(24, 50);
 	printf("         ");
-	mt_gotoXY(24, 30);
+	mt_gotoXY(24, 50);
 	printf("%x", value);
 	rk_regime();
 	return 0;
+}
+
+int updateInRun() {
+	displayRegSet(MEM, 0);
+	displayRegSet(ACC, 0);
+	displayRegSet(OPER, 0);
+	displayRegSet(BC, 0);
+	displayRegSet(INSTR, 0);
+	displayRegSet(IO, 1);
+}
+
+int updateAfterRun() {
+	displayRegSet(FLAGS, 0);
 }

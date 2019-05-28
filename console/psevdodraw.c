@@ -44,19 +44,9 @@ void displayInOut() {
 	mt_setbgcolor(DEFAULT);
 
 	mt_gotoXY(24, 21);
-	/*if (input < 10000){
-		
-	}
-	else {
-	}
-
-	mt_gotoXY(24, 63);
-	if (output < 10000) {
-		
-	}
-	else {
-		
-	}*/
+	printf("          ");
+	mt_gotoXY(24, 50);
+	printf("         ");
 	displayRegSet(IO, 1);
 }
 
@@ -177,6 +167,9 @@ void displayFlags() {
 	printf(" Flags ");
 
 	mt_setbgcolor(DEFAULT);
+
+	mt_gotoXY(11, 68);
+	printf("           ");
 	sc_regGet(WRONGADD, &value);
 	if (value == 1) {
 		mt_gotoXY(11, 69);

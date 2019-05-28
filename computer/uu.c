@@ -73,6 +73,7 @@ int cu() {
 
 		case HALT: {
 			sc_regSet(IGNORTIME, 1);
+			sc_regSet(IGNORTACT, 0);
 			return -1;
 		}
 

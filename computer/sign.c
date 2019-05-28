@@ -1,6 +1,5 @@
 #include "computer.h"
 #include "../console/console.h"
-#include "../msca/MySimpleComputer.h"
 #include <signal.h>
 
 #include <unistd.h>
@@ -11,9 +10,11 @@ struct itimerval oval;
 
 void signHandler(int signo) {
 	if (!cu()) {
+		updateInRun();
+		showAll();
 		setTimer(1, 0, 2, 0);
 	} else {
-		sc_regSet(IGNORTACT, 0);
+		updateAfterRun();
 	}
 }
 

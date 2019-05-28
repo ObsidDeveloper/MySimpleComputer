@@ -37,6 +37,9 @@ int display_acces;
 #define IO 6
 #define FLAGS 7
 
+int updateInRun();
+int updateAfterRun();
+
 void displayInOut();
 void displayMemory();
 void displayAccumulator();
